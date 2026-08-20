@@ -1,100 +1,111 @@
-# vinext-starter
+# CICSNW website
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+Static fundraising and community website for CICSNW, Taiba Musalla, and the New West Masjid project.
 
-## Prerequisites
+The site has no backend, database, accounts, or login requirement. A production build consists entirely of static HTML, CSS, JavaScript, and image files that can be hosted by any normal static hosting service.
 
-- Node.js `>=22.13.0`
+## Technology
 
-## Quick Start
+- React 19 for page components
+- TypeScript for type checking
+- Vite 8 for local development and production builds
+- Plain CSS in `app/globals.css` for the visual design and responsive layout
+- JSON in `content/gallery.json` for the maintainable gallery list
+
+The main page component is `app/page.tsx`. The browser entry point is `src/main.tsx`. Files placed in `public/` are copied unchanged to the root of the production site.
+
+## Requirements
+
+- Node.js 22.13 or newer
+- npm
+
+## First-time setup
 
 ```bash
 npm install
+```
+
+Copy `.env.example` to `.env.local`, then replace the placeholder with the real fundraising-platform URL:
+
+```env
+VITE_DONATION_URL=https://your-fundraising-platform.example/donate
+```
+
+All donation buttons use this single value. Variables exposed to the browser must begin with `VITE_`.
+
+## Local development
+
+Start the development server:
+
+```bash
 npm run dev
+```
+
+Vite prints the local URL in the terminal, normally `http://localhost:5173`. Changes to the page, styles, gallery data, and images update automatically during development.
+
+## Production build
+
+Create the deployable site:
+
+```bash
 npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+The finished website is written to the `dist/` folder.
 
-## Included Shape
+To check the production build locally:
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-Signed-in visitors receive both `oai-authenticated-user-id` and `oai-authenticated-user-email`. Private Sites require every visitor to sign in; public Sites may also have anonymous visitors, for whom neither header is present.
-
-The user ID is stable for the same user on the same Site and different across Sites. Email and name are intended for display or contact purposes.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get("oai-authenticated-user-id");
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```bash
+npm run preview
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+## Uploading to a hosting service
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+Upload the **contents of `dist/`** to the hosting service's public web root. Do not upload `src/`, `app/`, `node_modules/`, or the project root as the public website.
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+Common platform settings:
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+- Build command: `npm run build`
+- Publish/output directory: `dist`
+- Framework preset: Vite, React, or Static Site
+- Node version: 22.13 or newer
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+This works with services such as Cloudflare Pages, Netlify, Vercel static hosting, GitHub Pages with an appropriate base path, or conventional hosting where files are uploaded by SFTP/FTP.
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+If the site is hosted below a subdirectory instead of at the domain root, update Vite's `base` option in `vite.config.ts` before building.
 
-## Useful Commands
+## Adding gallery photos
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+1. Add an optimized `.jpg`, `.png`, `.webp`, or `.avif` image to `public/gallery/`.
+2. Add an entry to `content/gallery.json`:
 
-## Learn More
+```json
+[
+  {
+    "src": "/gallery/community-iftar.webp",
+    "alt": "Families gathering for a community iftar at Taiba Musalla",
+    "caption": "Community iftar"
+  }
+]
+```
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+`alt` text is required and should briefly describe what is visible for people using screen readers. `caption` is optional. Keep filenames lowercase, use hyphens instead of spaces, and resize large camera photos before adding them. WebP or AVIF is preferred for smaller downloads.
+
+The gallery automatically switches from its empty state to the photo grid when at least one valid entry is present. Run `npm run build` and upload the refreshed `dist/` contents after changing photos.
+
+## Logo and other public files
+
+The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with the same filename to update the logo everywhere without editing the page component.
+
+## Prayer times
+
+Awqat prevents its mosque page from being displayed inside another website. The prayer-times section therefore opens the official Taiba Musalla timetable in a new tab instead of using a broken iframe. Keep the Awqat URL in `app/page.tsx` current if the mosque page changes.
+
+## Important maintenance notes
+
+- This is a single-page static site. Navigation links scroll to sections on the same page.
+- There is no server-side code, authentication, database, or content-management system.
+- Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
+- The donation URL is not secret and is safe to configure as `VITE_DONATION_URL` in the hosting provider.
+- Run `npm run build` before every deployment. A successful build performs TypeScript checking first.
+- Preserve meaningful image `alt` text and visible keyboard focus when changing the interface.

@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+import galleryData from "../content/gallery.json";
 
-export const metadata: Metadata = {
-  title: "New West Masjid | CICS New Westminster",
-  description: "Help establish New Westminster's first permanent masjid and Islamic centre.",
-};
-
-const donationUrl = process.env.NEXT_PUBLIC_DONATION_URL || "#give";
+type GalleryItem = { src: string; alt: string; caption?: string };
+const galleryItems = galleryData as GalleryItem[];
+const donationUrl = import.meta.env.VITE_DONATION_URL || "#give";
 
 const milestones = [
   { amount: "$1 million", date: "December 31, 2026", label: "Land acquisition" },
@@ -24,14 +21,14 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="CICS New Westminster home">
-          <span className="brand-mark" aria-hidden="true">C</span>
-          <span><strong>CICS New Westminster</strong><small>Taiba Musalla</small></span>
+        <a className="brand" href="#top" aria-label="CICSNW home">
+          <img className="brand-logo" src="/cicsnw-logo.png" alt="CICSNW — Canadian Islamic Cultural Society, Taiba Musalla" />
         </a>
         <nav aria-label="Primary navigation">
           <a href="#project">The project</a>
           <a href="#milestones">Milestones</a>
           <a href="#prayer-times">Prayer times</a>
+          <a href="#gallery">Gallery</a>
           <a href="#about">About</a>
           <a className="button button-small" href={donationUrl}>Donate</a>
         </nav>
@@ -67,7 +64,7 @@ export default function Home() {
         </div>
         <div className="project-grid">
           <div className="project-story">
-            <p className="large-copy">CICS New Westminster is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
+            <p className="large-copy">CICSNW is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
             <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial prefab structure is designed to be extended as the community and its needs grow.</p>
             <a className="inline-link" href="#milestones">Explore the funding plan <span aria-hidden="true">→</span></a>
           </div>
@@ -140,8 +137,12 @@ export default function Home() {
       <section className="community-section section" id="prayer-times">
         <div className="prayer-card">
           <div className="mini-heading"><p className="eyebrow dark">Pray with us</p><h2>Prayer times</h2><p>Live timetable for Taiba Musalla in New Westminster.</p></div>
-          <iframe title="Taiba Musalla prayer timetable" src="https://www.awqat.net/masjid/taiba-musallah" loading="lazy" />
-          <a className="inline-link" href="https://www.awqat.net/masjid/taiba-musallah" target="_blank" rel="noreferrer">Open the full timetable <span aria-hidden="true">↗</span></a>
+          <div className="prayer-link-card">
+            <div className="live-badge"><span aria-hidden="true" /> Live timetable</div>
+            <p>View today&apos;s salah and iqamah times directly on Awqat.</p>
+            <div className="prayer-names" aria-label="Daily prayers"><span>Fajr</span><span>Dhuhr</span><span>Asr</span><span>Maghrib</span><span>Isha</span><span>Jumu&apos;ah</span></div>
+            <a className="button" href="https://www.awqat.net/masjid/taiba-musallah" target="_blank" rel="noreferrer">View today&apos;s prayer times <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
         <aside className="classes-card">
           <p className="eyebrow">Learning at Taiba</p>
@@ -149,6 +150,29 @@ export default function Home() {
           <p>Taiba Musalla offers evening Quran classes for children in a welcoming community setting.</p>
           <a className="text-link" href="mailto:taiba@cicsnw.org?subject=Evening%20Quran%20Classes">Ask about registration <span aria-hidden="true">→</span></a>
         </aside>
+      </section>
+
+      <section className="gallery-section section" id="gallery">
+        <div className="section-heading">
+          <p className="eyebrow dark">Our community</p>
+          <h2>Moments at Taiba Musalla.</h2>
+          <p>Prayer, learning and community life in New Westminster.</p>
+        </div>
+        {galleryItems.length > 0 ? (
+          <div className="gallery-grid">
+            {galleryItems.map((item) => (
+              <figure key={item.src}>
+                <img src={item.src} alt={item.alt} loading="lazy" />
+                {item.caption && <figcaption>{item.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <div className="gallery-empty">
+            <div><span>01</span></div><div><span>02</span></div><div><span>03</span></div>
+            <p>Community photos will be added here soon.</p>
+          </div>
+        )}
       </section>
 
       <section className="about-section section" id="about">
@@ -160,11 +184,11 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="footer-brand"><span className="brand-mark" aria-hidden="true">C</span><div><strong>CICS New Westminster</strong><p>Canadian Islamic Cultural Society · Taiba Musalla</p></div></div>
+        <div className="footer-brand"><img className="footer-logo" src="/cicsnw-logo.png" alt="CICSNW" /></div>
         <div><p className="footer-label">Visit</p><address>1206 Kingston Street<br />New Westminster, BC</address></div>
         <div><p className="footer-label">Contact</p><a href="mailto:taiba@cicsnw.org">taiba@cicsnw.org</a><br /><a href="tel:+17788294786">+1 778 829 4786</a></div>
         <div className="footer-action"><a className="button" href={donationUrl}>Donate now</a></div>
-        <p className="copyright">© {new Date().getFullYear()} Canadian Islamic Cultural Society New Westminster. CRA Registered Charity BN 769877523RR0001.</p>
+        <p className="copyright">© {new Date().getFullYear()} CICSNW. CRA Registered Charity BN 769877523RR0001.</p>
       </footer>
     </main>
   );
