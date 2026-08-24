@@ -1,10 +1,15 @@
+import { useState } from "react";
+import faqData from "../content/faqs.json";
 import galleryData from "../content/gallery.json";
 import SliderModule from "react-slick";
 import type { CustomArrowProps, Settings } from "react-slick";
 import { siteConfig } from "./siteConfig";
 
 type GalleryItem = { src: string; alt: string; caption?: string };
+type FaqItem = { question: string; answer: string };
 const galleryItems = galleryData as GalleryItem[];
+const faqItems = faqData as FaqItem[];
+const initialFaqCount = 3;
 const Slider = (SliderModule as unknown as { default?: typeof SliderModule }).default ?? SliderModule;
 const currency = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
 
@@ -65,6 +70,9 @@ const gallerySettings: Settings = {
 };
 
 export default function Home() {
+  const [showAllFaqs, setShowAllFaqs] = useState(false);
+  const visibleFaqs = showAllFaqs ? faqItems : faqItems.slice(0, initialFaqCount);
+
   return (
     <main>
       <header className="site-header">
@@ -119,7 +127,9 @@ export default function Home() {
           <div className="project-story">
             <p className="large-copy">CICSNW is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
             <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial pre-fabricated structure is designed to be extended as the community and its needs grow.</p>
-            <a className="inline-link" href="#milestones">Explore the funding plan <span aria-hidden="true">→</span></a>
+            <a className="inline-link" href="/new-westminster-masjid-project-plan.pdf" target="_blank" rel="noopener noreferrer">
+              Explore the project plan <span aria-hidden="true">↗</span>
+            </a>
           </div>
           <div className="project-facts" aria-label="Project facts">
             <div><strong>20,431.5</strong><span>sq. ft. unified site</span></div>
@@ -258,6 +268,36 @@ export default function Home() {
             <div><span>01</span></div><div><span>02</span></div><div><span>03</span></div>
             <p>Community photos will be added here soon.</p>
           </div>
+        )}
+      </section>
+
+      <section className="faq-section section" id="faq">
+        <div className="section-heading">
+          <p className="eyebrow dark">Questions about the project</p>
+          <h2>Frequently asked questions.</h2>
+        </div>
+        <div className="faq-list">
+          {visibleFaqs.map((faq, index) => (
+            <details className="faq-item" key={faq.question}>
+              <summary>
+                <span className="faq-number">{String(index + 1).padStart(2, "0")}</span>
+                <span>{faq.question}</span>
+                <span className="faq-arrow" aria-hidden="true">↓</span>
+              </summary>
+              <div className="faq-answer"><p>{faq.answer}</p></div>
+            </details>
+          ))}
+        </div>
+        {faqItems.length > initialFaqCount && (
+          <button
+            className="faq-toggle"
+            type="button"
+            aria-expanded={showAllFaqs}
+            onClick={() => setShowAllFaqs((current) => !current)}
+          >
+            {showAllFaqs ? "Show fewer questions" : `Show all ${faqItems.length} questions`}
+            <span aria-hidden="true">{showAllFaqs ? "↑" : "↓"}</span>
+          </button>
         )}
       </section>
 
