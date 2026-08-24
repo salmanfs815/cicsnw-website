@@ -17,7 +17,7 @@
   {
     "src": "/gallery/womens-prayer-hall.jpg",
     "alt": "Women's prayer hall",
-    "caption": "Women's prayer and learning space"
+    "caption": "Women's prayer hall"
   },
   {
     "src": "/gallery/jumuah-food-sale.jpg",
@@ -38,5 +38,10 @@
     "src": "/gallery/new-masjid-site-street-view.jpg",
     "alt": "Tree-lined street corner at the proposed New West Masjid site",
     "caption": "Future New West Masjid site"
+  },
+  {
+    "src": "/gallery/volunteers-new-masjid-site.jpeg",
+    "alt": "Volunteers at the proposed New West Masjid site",
+    "caption": "Volunteers at the new Masjid site"
   }
 ]

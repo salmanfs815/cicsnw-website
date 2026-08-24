@@ -1,8 +1,11 @@
 import galleryData from "../content/gallery.json";
+import SliderModule from "react-slick";
+import type { CustomArrowProps, Settings } from "react-slick";
 
 type GalleryItem = { src: string; alt: string; caption?: string };
 const galleryItems = galleryData as GalleryItem[];
 const donationUrl = import.meta.env.VITE_DONATION_URL || "#give";
+const Slider = (SliderModule as unknown as { default?: typeof SliderModule }).default ?? SliderModule;
 
 const milestones = [
   { amount: "$1 million", date: "December 31, 2026", label: "Land acquisition" },
@@ -16,6 +19,37 @@ const funds = [
   { number: "02", name: "Taiba Musalla", detail: "Sadaqa for the operating costs of our current musalla." },
   { number: "03", name: "Zakat", detail: "Direct your zakat through the community's trusted platform." },
 ];
+
+function GalleryArrow({ className, onClick, direction }: CustomArrowProps & { direction: "previous" | "next" }) {
+  return (
+    <button className={className} type="button" onClick={onClick} aria-label={`${direction === "previous" ? "Previous" : "Next"} gallery photos`}>
+      <span aria-hidden="true">{direction === "previous" ? "←" : "→"}</span>
+    </button>
+  );
+}
+
+const gallerySettings: Settings = {
+  accessibility: true,
+  dots: true,
+  infinite: false,
+  lazyLoad: "ondemand",
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  swipeToSlide: true,
+  prevArrow: <GalleryArrow direction="previous" />,
+  nextArrow: <GalleryArrow direction="next" />,
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: { slidesToShow: 2, slidesToScroll: 2 },
+    },
+    {
+      breakpoint: 600,
+      settings: { slidesToShow: 1, slidesToScroll: 1 },
+    },
+  ],
+};
 
 export default function Home() {
   return (
@@ -171,13 +205,17 @@ export default function Home() {
           <p>Prayer, learning and community life in New Westminster.</p>
         </div>
         {galleryItems.length > 0 ? (
-          <div className="gallery-grid">
-            {galleryItems.map((item) => (
-              <figure key={item.src}>
-                <img src={item.src} alt={item.alt} loading="lazy" />
-                {item.caption && <figcaption>{item.caption}</figcaption>}
-              </figure>
-            ))}
+          <div className="gallery-carousel" role="region" aria-label="Taiba Musalla community photo gallery">
+            <Slider {...gallerySettings}>
+              {galleryItems.map((item) => (
+                <div className="gallery-slide" key={item.src}>
+                  <figure>
+                    <img src={item.src} alt={item.alt} loading="lazy" />
+                    {item.caption && <figcaption>{item.caption}</figcaption>}
+                  </figure>
+                </div>
+              ))}
+            </Slider>
           </div>
         ) : (
           <div className="gallery-empty">

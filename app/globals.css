@@ -102,10 +102,22 @@ h3 { font-family:Georgia,serif; font-size:26px; font-weight:400; }
 .classes-card>p:not(.eyebrow) { color:#f0e7d4; margin:24px 0 32px; }
 .classes-card .text-link { align-self:flex-start; }
 .gallery-section { background:#eee8d9; }
-.gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.gallery-grid figure { margin:0; background:var(--white); }
-.gallery-grid img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
-.gallery-grid figcaption { padding:14px 16px; color:#60736c; font-size:13px; }
+.gallery-carousel { margin:0 -9px; padding-bottom:40px; }
+.gallery-slide { padding:0 9px; }
+.gallery-slide figure { margin:0; background:var(--white); }
+.gallery-slide img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+.gallery-slide figcaption { min-height:49px; padding:14px 16px; color:#60736c; font-size:13px; }
+.gallery-carousel .slick-prev,.gallery-carousel .slick-next { position:absolute; z-index:2; bottom:-32px; width:42px; height:42px; padding:0; border:1px solid #bdb295; border-radius:50%; background:transparent; color:var(--ink); font-size:18px; cursor:pointer; transition:background .2s ease,color .2s ease,border-color .2s ease; }
+.gallery-carousel .slick-prev { right:60px; }
+.gallery-carousel .slick-next { right:9px; }
+.gallery-carousel .slick-prev:hover,.gallery-carousel .slick-next:hover { background:var(--ink); border-color:var(--ink); color:var(--white); }
+.gallery-carousel .slick-prev:focus-visible,.gallery-carousel .slick-next:focus-visible,.gallery-carousel .slick-dots button:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+.gallery-carousel .slick-disabled { opacity:.35; cursor:not-allowed; }
+.gallery-carousel .slick-disabled:hover { background:transparent; border-color:#bdb295; color:var(--ink); }
+.gallery-carousel .slick-dots { position:absolute; bottom:-17px; left:9px; display:flex!important; align-items:center; gap:9px; list-style:none; margin:0; padding:0; }
+.gallery-carousel .slick-dots li { display:flex; }
+.gallery-carousel .slick-dots button { width:9px; height:9px; padding:0; overflow:hidden; border:0; border-radius:50%; background:#bdb295; color:transparent; cursor:pointer; }
+.gallery-carousel .slick-dots .slick-active button { background:var(--ink); }
 .gallery-empty { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .gallery-empty>div { min-height:280px; display:grid; place-items:center; border:1px dashed #bdb295; background:rgba(255,255,255,.22); color:#b2a587; font-family:Georgia,serif; font-size:30px; }
 .gallery-empty>p { grid-column:1/-1; margin:6px 0 0; color:#786f5e; font-size:13px; }
@@ -123,7 +135,7 @@ address,footer a { color:#91a69f; font-size:13px; font-style:normal; line-height
 .social-links svg { width:16px; height:16px; fill:currentColor; flex:0 0 auto; }
 .footer-action a { color:#132c25; }
 .copyright { grid-column:1/-1; padding-top:28px; margin-top:16px; border-top:1px solid rgba(255,255,255,.12); color:#70877f; font-size:11px; }
-@media (max-width:900px) { nav>a:not(.button){display:none}.hero{grid-template-columns:1fr;padding:76px 28px}.fund-card{max-width:560px}.project-grid,.give-section,.community-section,.about-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr;gap:52px}.timeline::before{display:none}.timeline-dot{margin:15px 0}.sponsor-section{grid-template-columns:1fr}.sponsor-number{display:none}.sustain-grid{grid-template-columns:1fr}.sustain-grid article,.sustain-grid article+article{padding:26px 0;border-right:0;border-bottom:1px solid #ccd6d0}footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.gallery-grid,.gallery-empty{grid-template-columns:1fr 1fr}.gallery-empty>p{grid-column:1/-1} }
+@media (max-width:900px) { nav>a:not(.button){display:none}.hero{grid-template-columns:1fr;padding:76px 28px}.fund-card{max-width:560px}.project-grid,.give-section,.community-section,.about-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr;gap:52px}.timeline::before{display:none}.timeline-dot{margin:15px 0}.sponsor-section{grid-template-columns:1fr}.sponsor-number{display:none}.sustain-grid{grid-template-columns:1fr}.sustain-grid article,.sustain-grid article+article{padding:26px 0;border-right:0;border-bottom:1px solid #ccd6d0}footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.gallery-empty{grid-template-columns:1fr 1fr}.gallery-empty>p{grid-column:1/-1} }
 @media (max-width:680px) { .prayer-widget-large{display:none}.prayer-widget-small{display:block} }
-@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-widget-card{padding:12px;border-radius:14px}.prayer-widget{margin-top:14px;border-radius:9px}.prayer-widget-large{display:none}.prayer-widget-small{display:block}.gallery-grid,.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px} }
+@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-widget-card{padding:12px;border-radius:14px}.prayer-widget{margin-top:14px;border-radius:9px}.prayer-widget-large{display:none}.prayer-widget-small{display:block}.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px} }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.button{transition:none} }
