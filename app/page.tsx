@@ -130,7 +130,7 @@ export default function Home() {
         <div className="project-grid">
           <div className="project-story">
             <p className="large-copy">CICSNW is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
-            <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial pre-fabricated structure is designed to be extended as the community and its needs grow.</p>
+            <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey masjid. The initial pre-fabricated structure is designed to be extended as the community and its needs grow.</p>
             <a className="inline-link" href={assetPath("/new-westminster-masjid-project-plan.pdf")} target="_blank" rel="noopener noreferrer">
               Explore the project plan <span aria-hidden="true">↗</span>
             </a>
@@ -138,7 +138,7 @@ export default function Home() {
           <div className="project-facts" aria-label="Project facts">
             <div><strong>20,431.5</strong><span>sq. ft. unified site</span></div>
             <div><strong>3</strong><span>adjoining properties</span></div>
-            <div><strong>4,800</strong><span>sq. ft. initial musalla</span></div>
+            <div><strong>4,800</strong><span>sq. ft. initial building</span></div>
           </div>
         </div>
         <article className="site-location-card">
