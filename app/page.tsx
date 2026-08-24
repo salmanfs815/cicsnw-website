@@ -127,6 +127,23 @@ export default function Home() {
             <div><strong>4,800</strong><span>sq. ft. initial musalla</span></div>
           </div>
         </div>
+        <article className="site-location-card">
+          <div className="site-location-image">
+            <img
+              src="/new-masjid-site-location.png"
+              alt="Aerial map showing the new masjid site outlined in red at Eighth Avenue and Eighth Street in New Westminster"
+            />
+          </div>
+          <div className="site-location-copy">
+            <p className="eyebrow dark">New masjid site</p>
+            <h3>{siteConfig.newMasjidLocationLine1}</h3>
+            <p>{siteConfig.newMasjidLocationLine2}</p>
+            <p className="site-location-detail">The three adjoining properties outlined on the map will form the future home of New West Masjid.</p>
+            <a className="inline-link" href={siteConfig.newMasjidMapsUrl} target="_blank" rel="noreferrer">
+              View location on Google Maps <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
       </section>
 
       <section className="milestone-section section" id="milestones">
