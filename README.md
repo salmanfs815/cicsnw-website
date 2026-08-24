@@ -25,13 +25,17 @@ The main page component is `app/page.tsx`. The browser entry point is `src/main.
 npm install
 ```
 
-Copy `.env.example` to `.env.local`, then replace the placeholder with the real fundraising-platform URL:
+Copy `.env.example` to `.env.local`, then update the public site configuration values. For example:
 
 ```env
 VITE_DONATION_URL=https://your-fundraising-platform.example/donate
+VITE_FUNDS_RAISED=10000
+VITE_CONTACT_EMAIL=contact@cicsnw.org
 ```
 
-All donation buttons use this single value. Variables exposed to the browser must begin with `VITE_`.
+The environment file controls the fundraising totals and milestones, sponsorship amount, contact details, address, CRA registration number, social links, and prayer-time URLs. Monetary values are entered as plain numbers without `$` signs or commas. Restart the development server after changing an environment variable.
+
+All variables exposed to the browser must begin with `VITE_`. These values are public configuration, not secrets. When deploying through a hosting provider, add the same variables in that provider's environment-variable settings before building.
 
 ## Local development
 
@@ -99,13 +103,13 @@ The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with 
 
 ## Prayer times
 
-Awqat prevents its mosque page from being displayed inside another website. The prayer-times section therefore opens the official Taiba Musalla timetable in a new tab instead of using a broken iframe. Keep the Awqat URL in `app/page.tsx` current if the mosque page changes.
+The two Athan+ widget URLs and the Awqat fallback URL are configured through `VITE_ATHAN_DESKTOP_EMBED_URL`, `VITE_ATHAN_MOBILE_EMBED_URL`, and `VITE_AWQAT_URL`.
 
 ## Important maintenance notes
 
 - This is a single-page static site. Navigation links scroll to sections on the same page.
 - There is no server-side code, authentication, database, or content-management system.
 - Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
-- The donation URL is not secret and is safe to configure as `VITE_DONATION_URL` in the hosting provider.
+- The values in `.env.example` are not secret and are safe to configure in the hosting provider.
 - Run `npm run build` before every deployment. A successful build performs TypeScript checking first.
 - Preserve meaningful image `alt` text and visible keyboard focus when changing the interface.
