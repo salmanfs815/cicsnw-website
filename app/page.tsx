@@ -7,7 +7,11 @@ import { siteConfig } from "./siteConfig";
 
 type GalleryItem = { src: string; alt: string; caption?: string };
 type FaqItem = { question: string; answer: string };
-const galleryItems = galleryData as GalleryItem[];
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+const galleryItems = (galleryData as GalleryItem[]).map((item) => ({
+  ...item,
+  src: assetPath(item.src),
+}));
 const faqItems = faqData as FaqItem[];
 const initialFaqCount = 3;
 const Slider = (SliderModule as unknown as { default?: typeof SliderModule }).default ?? SliderModule;
@@ -77,7 +81,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="CICSNW home">
-          <img className="brand-logo" src="/cicsnw-logo.png" alt="CICSNW — Canadian Islamic Cultural Society, Taiba Musalla" />
+          <img className="brand-logo" src={assetPath("/cicsnw-logo.png")} alt="CICSNW — Canadian Islamic Cultural Society, Taiba Musalla" />
         </a>
         <nav aria-label="Primary navigation">
           <a href="#project">Masjid Project</a>
@@ -127,7 +131,7 @@ export default function Home() {
           <div className="project-story">
             <p className="large-copy">CICSNW is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
             <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial pre-fabricated structure is designed to be extended as the community and its needs grow.</p>
-            <a className="inline-link" href="/new-westminster-masjid-project-plan.pdf" target="_blank" rel="noopener noreferrer">
+            <a className="inline-link" href={assetPath("/new-westminster-masjid-project-plan.pdf")} target="_blank" rel="noopener noreferrer">
               Explore the project plan <span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -140,7 +144,7 @@ export default function Home() {
         <article className="site-location-card">
           <div className="site-location-image">
             <img
-              src="/new-masjid-site-location.png"
+              src={assetPath("/new-masjid-site-location.png")}
               alt="Aerial map showing the new masjid site outlined in red at Eighth Avenue and Eighth Street in New Westminster"
             />
           </div>
@@ -310,7 +314,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="footer-brand"><img className="footer-logo" src="/cicsnw-logo.png" alt="CICSNW" /></div>
+        <div className="footer-brand"><img className="footer-logo" src={assetPath("/cicsnw-logo.png")} alt="CICSNW" /></div>
         <div><p className="footer-label">Visit</p><address>{siteConfig.addressLine1}<br />{siteConfig.addressLine2}</address></div>
         <div><p className="footer-label">Contact</p><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br /><a href={phoneHref}>{siteConfig.phone}</a></div>
         <div>

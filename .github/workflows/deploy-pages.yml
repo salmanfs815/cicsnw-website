@@ -1,0 +1,80 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    env:
+      VITE_DONATION_URL: ${{ vars.VITE_DONATION_URL }}
+      VITE_FUNDS_RAISED: ${{ vars.VITE_FUNDS_RAISED }}
+      VITE_FUNDRAISING_GOAL: ${{ vars.VITE_FUNDRAISING_GOAL }}
+      VITE_LAND_ACQUISITION_COST: ${{ vars.VITE_LAND_ACQUISITION_COST }}
+      VITE_INITIAL_BUILDING_COST: ${{ vars.VITE_INITIAL_BUILDING_COST }}
+      VITE_SPONSORSHIP_AMOUNT: ${{ vars.VITE_SPONSORSHIP_AMOUNT }}
+      VITE_MILESTONE_1_AMOUNT: ${{ vars.VITE_MILESTONE_1_AMOUNT }}
+      VITE_MILESTONE_1_DATE: ${{ vars.VITE_MILESTONE_1_DATE }}
+      VITE_MILESTONE_2_AMOUNT: ${{ vars.VITE_MILESTONE_2_AMOUNT }}
+      VITE_MILESTONE_2_DATE: ${{ vars.VITE_MILESTONE_2_DATE }}
+      VITE_MILESTONE_3_AMOUNT: ${{ vars.VITE_MILESTONE_3_AMOUNT }}
+      VITE_MILESTONE_3_DATE: ${{ vars.VITE_MILESTONE_3_DATE }}
+      VITE_MILESTONE_4_AMOUNT: ${{ vars.VITE_MILESTONE_4_AMOUNT }}
+      VITE_MILESTONE_4_DATE: ${{ vars.VITE_MILESTONE_4_DATE }}
+      VITE_CONTACT_EMAIL: ${{ vars.VITE_CONTACT_EMAIL }}
+      VITE_CLASSES_EMAIL: ${{ vars.VITE_CLASSES_EMAIL }}
+      VITE_PHONE: ${{ vars.VITE_PHONE }}
+      VITE_ADDRESS_LINE_1: ${{ vars.VITE_ADDRESS_LINE_1 }}
+      VITE_ADDRESS_LINE_2: ${{ vars.VITE_ADDRESS_LINE_2 }}
+      VITE_NEW_MASJID_LOCATION_LINE_1: ${{ vars.VITE_NEW_MASJID_LOCATION_LINE_1 }}
+      VITE_NEW_MASJID_LOCATION_LINE_2: ${{ vars.VITE_NEW_MASJID_LOCATION_LINE_2 }}
+      VITE_NEW_MASJID_MAPS_URL: ${{ vars.VITE_NEW_MASJID_MAPS_URL }}
+      VITE_CHARITY_REGISTRATION_NUMBER: ${{ vars.VITE_CHARITY_REGISTRATION_NUMBER }}
+      VITE_WHATSAPP_URL: ${{ vars.VITE_WHATSAPP_URL }}
+      VITE_FACEBOOK_URL: ${{ vars.VITE_FACEBOOK_URL }}
+      VITE_INSTAGRAM_URL: ${{ vars.VITE_INSTAGRAM_URL }}
+      VITE_YOUTUBE_URL: ${{ vars.VITE_YOUTUBE_URL }}
+      VITE_ATHAN_DESKTOP_EMBED_URL: ${{ vars.VITE_ATHAN_DESKTOP_EMBED_URL }}
+      VITE_ATHAN_MOBILE_EMBED_URL: ${{ vars.VITE_ATHAN_MOBILE_EMBED_URL }}
+      VITE_AWQAT_URL: ${{ vars.VITE_AWQAT_URL }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

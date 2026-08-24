@@ -20,6 +20,9 @@ interface ImportMetaEnv {
   readonly VITE_PHONE?: string;
   readonly VITE_ADDRESS_LINE_1?: string;
   readonly VITE_ADDRESS_LINE_2?: string;
+  readonly VITE_NEW_MASJID_LOCATION_LINE_1?: string;
+  readonly VITE_NEW_MASJID_LOCATION_LINE_2?: string;
+  readonly VITE_NEW_MASJID_MAPS_URL?: string;
   readonly VITE_CHARITY_REGISTRATION_NUMBER?: string;
   readonly VITE_WHATSAPP_URL?: string;
   readonly VITE_FACEBOOK_URL?: string;

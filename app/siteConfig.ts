@@ -1,37 +1,42 @@
-const env = import.meta.env;
+function requiredValue(name: string, value: string | undefined) {
+  if (!value?.trim()) throw new Error(`Missing required environment variable: ${name}`);
+  return value;
+}
 
-function numberValue(value: string | undefined, fallback: number) {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+function numberValue(name: string, value: string | undefined) {
+  const configuredValue = requiredValue(name, value);
+  const parsed = Number(configuredValue);
+  if (!Number.isFinite(parsed) || parsed < 0) throw new Error(`Invalid non-negative number for ${name}`);
+  return parsed;
 }
 
 export const siteConfig = {
-  donationUrl: env.VITE_DONATION_URL || "#give",
-  fundsRaised: numberValue(env.VITE_FUNDS_RAISED, 10_000),
-  fundraisingGoal: numberValue(env.VITE_FUNDRAISING_GOAL, 4_000_000),
-  landAcquisitionCost: numberValue(env.VITE_LAND_ACQUISITION_COST, 3_200_000),
-  initialBuildingCost: numberValue(env.VITE_INITIAL_BUILDING_COST, 800_000),
-  sponsorshipAmount: numberValue(env.VITE_SPONSORSHIP_AMOUNT, 10_000),
+  donationUrl: requiredValue("VITE_DONATION_URL", import.meta.env.VITE_DONATION_URL),
+  fundsRaised: numberValue("VITE_FUNDS_RAISED", import.meta.env.VITE_FUNDS_RAISED),
+  fundraisingGoal: numberValue("VITE_FUNDRAISING_GOAL", import.meta.env.VITE_FUNDRAISING_GOAL),
+  landAcquisitionCost: numberValue("VITE_LAND_ACQUISITION_COST", import.meta.env.VITE_LAND_ACQUISITION_COST),
+  initialBuildingCost: numberValue("VITE_INITIAL_BUILDING_COST", import.meta.env.VITE_INITIAL_BUILDING_COST),
+  sponsorshipAmount: numberValue("VITE_SPONSORSHIP_AMOUNT", import.meta.env.VITE_SPONSORSHIP_AMOUNT),
   milestones: [
-    { amount: numberValue(env.VITE_MILESTONE_1_AMOUNT, 1_000_000), date: env.VITE_MILESTONE_1_DATE || "December 31, 2026", label: "Land acquisition" },
-    { amount: numberValue(env.VITE_MILESTONE_2_AMOUNT, 1_000_000), date: env.VITE_MILESTONE_2_DATE || "March 10, 2027", label: "Land acquisition" },
-    { amount: numberValue(env.VITE_MILESTONE_3_AMOUNT, 1_200_000), date: env.VITE_MILESTONE_3_DATE || "May 31, 2027", label: "Complete acquisition" },
-    { amount: numberValue(env.VITE_MILESTONE_4_AMOUNT, 800_000), date: env.VITE_MILESTONE_4_DATE || "December 31, 2027", label: "Initial building" },
+    { amount: numberValue("VITE_MILESTONE_1_AMOUNT", import.meta.env.VITE_MILESTONE_1_AMOUNT), date: requiredValue("VITE_MILESTONE_1_DATE", import.meta.env.VITE_MILESTONE_1_DATE), label: "Land acquisition" },
+    { amount: numberValue("VITE_MILESTONE_2_AMOUNT", import.meta.env.VITE_MILESTONE_2_AMOUNT), date: requiredValue("VITE_MILESTONE_2_DATE", import.meta.env.VITE_MILESTONE_2_DATE), label: "Land acquisition" },
+    { amount: numberValue("VITE_MILESTONE_3_AMOUNT", import.meta.env.VITE_MILESTONE_3_AMOUNT), date: requiredValue("VITE_MILESTONE_3_DATE", import.meta.env.VITE_MILESTONE_3_DATE), label: "Complete acquisition" },
+    { amount: numberValue("VITE_MILESTONE_4_AMOUNT", import.meta.env.VITE_MILESTONE_4_AMOUNT), date: requiredValue("VITE_MILESTONE_4_DATE", import.meta.env.VITE_MILESTONE_4_DATE), label: "Initial building" },
   ],
-  contactEmail: env.VITE_CONTACT_EMAIL || "contact@cicsnw.org",
-  classesEmail: env.VITE_CLASSES_EMAIL || "taiba@cicsnw.org",
-  phone: env.VITE_PHONE || "+1 604 780 0048",
-  addressLine1: env.VITE_ADDRESS_LINE_1 || "1206 Kingston Street",
-  addressLine2: env.VITE_ADDRESS_LINE_2 || "New Westminster, BC",
-  newMasjidLocationLine1: env.VITE_NEW_MASJID_LOCATION_LINE_1 || "Eighth Avenue & Eighth Street",
-  newMasjidLocationLine2: env.VITE_NEW_MASJID_LOCATION_LINE_2 || "New Westminster, BC",
-  newMasjidMapsUrl: env.VITE_NEW_MASJID_MAPS_URL || "https://www.google.com/maps/search/?api=1&query=Eighth+Avenue+%26+Eighth+Street%2C+New+Westminster%2C+BC",
-  charityRegistrationNumber: env.VITE_CHARITY_REGISTRATION_NUMBER || "769877523RR0001",
-  whatsappUrl: env.VITE_WHATSAPP_URL || "https://chat.whatsapp.com/Ecg1NHbuhgQHr5lZ2XxsqH?s=cl&p=a&ilr=1",
-  facebookUrl: env.VITE_FACEBOOK_URL || "https://www.facebook.com/cicsnw.org",
-  instagramUrl: env.VITE_INSTAGRAM_URL || "https://www.instagram.com/taibamusallah",
-  youtubeUrl: env.VITE_YOUTUBE_URL || "https://youtube.com/@canadianislamicculturalsociety",
-  athanDesktopEmbedUrl: env.VITE_ATHAN_DESKTOP_EMBED_URL || "https://timing.athanplus.com/masjid/widgets/embed?theme=6&masjid_id=adJkaqKk",
-  athanMobileEmbedUrl: env.VITE_ATHAN_MOBILE_EMBED_URL || "https://timing.athanplus.com/masjid/widgets/embed?theme=3&masjid_id=adJkaqKk",
-  awqatUrl: env.VITE_AWQAT_URL || "https://www.awqat.net/masjid/taiba-musallah",
+  contactEmail: requiredValue("VITE_CONTACT_EMAIL", import.meta.env.VITE_CONTACT_EMAIL),
+  classesEmail: requiredValue("VITE_CLASSES_EMAIL", import.meta.env.VITE_CLASSES_EMAIL),
+  phone: requiredValue("VITE_PHONE", import.meta.env.VITE_PHONE),
+  addressLine1: requiredValue("VITE_ADDRESS_LINE_1", import.meta.env.VITE_ADDRESS_LINE_1),
+  addressLine2: requiredValue("VITE_ADDRESS_LINE_2", import.meta.env.VITE_ADDRESS_LINE_2),
+  newMasjidLocationLine1: requiredValue("VITE_NEW_MASJID_LOCATION_LINE_1", import.meta.env.VITE_NEW_MASJID_LOCATION_LINE_1),
+  newMasjidLocationLine2: requiredValue("VITE_NEW_MASJID_LOCATION_LINE_2", import.meta.env.VITE_NEW_MASJID_LOCATION_LINE_2),
+  newMasjidMapsUrl: requiredValue("VITE_NEW_MASJID_MAPS_URL", import.meta.env.VITE_NEW_MASJID_MAPS_URL),
+  charityRegistrationNumber: requiredValue("VITE_CHARITY_REGISTRATION_NUMBER", import.meta.env.VITE_CHARITY_REGISTRATION_NUMBER),
+  whatsappUrl: requiredValue("VITE_WHATSAPP_URL", import.meta.env.VITE_WHATSAPP_URL),
+  facebookUrl: requiredValue("VITE_FACEBOOK_URL", import.meta.env.VITE_FACEBOOK_URL),
+  instagramUrl: requiredValue("VITE_INSTAGRAM_URL", import.meta.env.VITE_INSTAGRAM_URL),
+  youtubeUrl: requiredValue("VITE_YOUTUBE_URL", import.meta.env.VITE_YOUTUBE_URL),
+  athanDesktopEmbedUrl: requiredValue("VITE_ATHAN_DESKTOP_EMBED_URL", import.meta.env.VITE_ATHAN_DESKTOP_EMBED_URL),
+  athanMobileEmbedUrl: requiredValue("VITE_ATHAN_MOBILE_EMBED_URL", import.meta.env.VITE_ATHAN_MOBILE_EMBED_URL),
+  awqatUrl: requiredValue("VITE_AWQAT_URL", import.meta.env.VITE_AWQAT_URL),
 };

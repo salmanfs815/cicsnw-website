@@ -78,6 +78,14 @@ This works with services such as Cloudflare Pages, Netlify, Vercel static hostin
 
 If the site is hosted below a subdirectory instead of at the domain root, update Vite's `base` option in `vite.config.ts` before building.
 
+## GitHub Pages deployment
+
+The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the site whenever `main` is pushed. In the repository's GitHub settings, open **Pages** and select **GitHub Actions** as the source.
+
+The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. The matching base path is configured in `vite.config.ts`.
+
+Build-time configuration can be added under **Settings → Secrets and variables → Actions → Variables**. Use the names documented in `.env.example`. These values are compiled into public browser code, so use repository variables—not secrets—and never store credentials in a `VITE_` variable. Unset variables use the defaults in `.env.example`.
+
 ## Adding gallery photos
 
 1. Add an optimized `.jpg`, `.png`, `.webp`, or `.avif` image to `public/gallery/`.
@@ -95,7 +103,7 @@ If the site is hosted below a subdirectory instead of at the domain root, update
 
 `alt` text is required and should briefly describe what is visible for people using screen readers. `caption` is optional. Keep filenames lowercase, use hyphens instead of spaces, and resize large camera photos before adding them. WebP or AVIF is preferred for smaller downloads.
 
-The gallery automatically switches from its empty state to the photo grid when at least one valid entry is present. Run `npm run build` and upload the refreshed `dist/` contents after changing photos.
+The gallery automatically includes each valid entry in its carousel. Push the change to `main` to deploy the update.
 
 ## Logo and other public files
 
