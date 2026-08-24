@@ -112,11 +112,15 @@ h3 { font-family:Georgia,serif; font-size:26px; font-weight:400; }
 .about-section { border-top:1px solid #cbd5cf; }
 .about-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(50px,9vw,130px); }
 .about-grid>div { color:#60736c; font-size:17px; }
-footer { background:#081f1b; color:#dbe5e1; padding:72px max(48px,calc((100vw - 1220px)/2)) 34px; display:grid; grid-template-columns:1.4fr .8fr .8fr auto; gap:48px; align-items:start; }
+footer { background:#081f1b; color:#dbe5e1; padding:72px max(48px,calc((100vw - 1220px)/2)) 34px; display:grid; grid-template-columns:1.25fr .7fr .85fr 1fr auto; gap:42px; align-items:start; }
 .footer-brand { align-items:flex-start; }
 .footer-logo { display:block; width:260px; max-width:100%; height:auto; filter:brightness(1.35); }
 address,footer a { color:#91a69f; font-size:13px; font-style:normal; line-height:1.7; margin:5px 0 0; }
 .footer-label { color:#d9bd83; text-transform:uppercase; letter-spacing:.13em; font-size:10px; font-weight:800; margin:0 0 10px; }
+.social-links { display:grid; gap:7px; }
+.social-links a { width:max-content; display:inline-flex; align-items:center; gap:8px; margin:0; transition:color .2s ease; }
+.social-links a:hover { color:var(--white); }
+.social-links svg { width:16px; height:16px; fill:currentColor; flex:0 0 auto; }
 .footer-action a { color:#132c25; }
 .copyright { grid-column:1/-1; padding-top:28px; margin-top:16px; border-top:1px solid rgba(255,255,255,.12); color:#70877f; font-size:11px; }
 @media (max-width:900px) { nav>a:not(.button){display:none}.hero{grid-template-columns:1fr;padding:76px 28px}.fund-card{max-width:560px}.project-grid,.give-section,.community-section,.about-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr;gap:52px}.timeline::before{display:none}.timeline-dot{margin:15px 0}.sponsor-section{grid-template-columns:1fr}.sponsor-number{display:none}.sustain-grid{grid-template-columns:1fr}.sustain-grid article,.sustain-grid article+article{padding:26px 0;border-right:0;border-bottom:1px solid #ccd6d0}footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.gallery-grid,.gallery-empty{grid-template-columns:1fr 1fr}.gallery-empty>p{grid-column:1/-1} }

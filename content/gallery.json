@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "src": "/gallery/mens-prayer-hall.jpg",
+    "alt": "Men's prayer hall",
+    "caption": "Men's prayer hall"
+  },
+  {
+    "src": "/gallery/quran-shelf.jpg",
+    "alt": "Shelf of Qurans and Islamic books",
+    "caption": "Quran and learning resources"
+  },
+  {
+    "src": "/gallery/congregation.jpg",
+    "alt": "Muslims standing together in prayer",
+    "caption": "Prayer at Taiba Musalla"
+  },
+  {
+    "src": "/gallery/womens-prayer-hall.jpg",
+    "alt": "Women's prayer hall",
+    "caption": "Women's prayer and learning space"
+  },
+  {
+    "src": "/gallery/jumuah-food-sale.jpg",
+    "alt": "Jumu'ah food sale",
+    "caption": "Jumu'ah community food sale"
+  },
+  {
+    "src": "/gallery/musalla-entrance.jpg",
+    "alt": "Street entrance to Taiba Musalla and Cultural Center on Kingston Street",
+    "caption": "Taiba Musalla entrance"
+  },
+  {
+    "src": "/gallery/musalla-street.jpg",
+    "alt": "Taiba Musalla exterior at the corner of Kingston and 12th streets",
+    "caption": "Taiba Musalla in New Westminster"
+  },
+  {
+    "src": "/gallery/new-masjid-site-street-view.jpg",
+    "alt": "Tree-lined street corner at the proposed New West Masjid site",
+    "caption": "Future New West Masjid site"
+  }
+]
