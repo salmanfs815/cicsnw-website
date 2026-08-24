@@ -89,14 +89,14 @@ h3 { font-family:Georgia,serif; font-size:26px; font-weight:400; }
 .mini-heading .eyebrow { grid-column:1/-1; }
 .mini-heading h2 { font-size:42px; }
 .mini-heading>p:last-child { color:#687d76; margin:0; }
-.prayer-link-card { min-height:390px; padding:48px; background:linear-gradient(145deg,#e8eee9,#f8f6ef); border:1px solid #d7e0da; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
-.prayer-link-card>p { max-width:540px; margin:20px 0; font-family:Georgia,serif; font-size:30px; line-height:1.35; }
+.prayer-widget-card { padding:20px; background:#f5f3ec; border:1px solid #ded8c9; border-radius:18px; box-shadow:0 18px 50px rgba(19,44,37,.08); overflow:hidden; }
 .live-badge { color:#536a62; font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
 .live-badge span { display:inline-block; width:8px; height:8px; margin-right:8px; border-radius:50%; background:#3c8b69; box-shadow:0 0 0 4px rgba(60,139,105,.13); }
-.prayer-names { width:100%; display:grid; grid-template-columns:repeat(6,1fr); margin:12px 0 34px; border-top:1px solid #cbd5cf; border-bottom:1px solid #cbd5cf; }
-.prayer-names span { padding:14px 5px; color:#60736c; font-size:12px; text-align:center; border-right:1px solid #cbd5cf; }
-.prayer-names span:first-child { text-align:left; }
-.prayer-names span:last-child { border-right:0; text-align:right; }
+.prayer-widget { display:block; width:100%; margin-top:18px; border:0; border-radius:12px; background:var(--white); }
+.prayer-widget-large { min-width:380px; min-height:690px; }
+.prayer-widget-small { display:none; min-height:501px; }
+.widget-fallback { margin:14px 0 0; color:#60736c; font-size:12px; text-align:center; }
+.widget-fallback a { color:#173f35; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 .classes-card { background:#9c7736; color:var(--white); padding:48px 40px; display:flex; flex-direction:column; justify-content:center; }
 .classes-card h2 { font-size:48px; }
 .classes-card>p:not(.eyebrow) { color:#f0e7d4; margin:24px 0 32px; }
@@ -120,5 +120,6 @@ address,footer a { color:#91a69f; font-size:13px; font-style:normal; line-height
 .footer-action a { color:#132c25; }
 .copyright { grid-column:1/-1; padding-top:28px; margin-top:16px; border-top:1px solid rgba(255,255,255,.12); color:#70877f; font-size:11px; }
 @media (max-width:900px) { nav>a:not(.button){display:none}.hero{grid-template-columns:1fr;padding:76px 28px}.fund-card{max-width:560px}.project-grid,.give-section,.community-section,.about-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr;gap:52px}.timeline::before{display:none}.timeline-dot{margin:15px 0}.sponsor-section{grid-template-columns:1fr}.sponsor-number{display:none}.sustain-grid{grid-template-columns:1fr}.sustain-grid article,.sustain-grid article+article{padding:26px 0;border-right:0;border-bottom:1px solid #ccd6d0}footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.gallery-grid,.gallery-empty{grid-template-columns:1fr 1fr}.gallery-empty>p{grid-column:1/-1} }
-@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-link-card{min-height:0;padding:30px 22px}.prayer-link-card>p{font-size:25px}.prayer-names{grid-template-columns:repeat(3,1fr)}.prayer-names span:nth-child(3){border-right:0}.gallery-grid,.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px} }
+@media (max-width:680px) { .prayer-widget-large{display:none}.prayer-widget-small{display:block} }
+@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-widget-card{padding:12px;border-radius:14px}.prayer-widget{margin-top:14px;border-radius:9px}.prayer-widget-large{display:none}.prayer-widget-small{display:block}.gallery-grid,.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px} }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.button{transition:none} }

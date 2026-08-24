@@ -25,9 +25,9 @@ export default function Home() {
           <img className="brand-logo" src="/cicsnw-logo.png" alt="CICSNW — Canadian Islamic Cultural Society, Taiba Musalla" />
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#project">The project</a>
+          <a href="#project">Masjid Project</a>
           <a href="#milestones">Milestones</a>
-          <a href="#prayer-times">Prayer times</a>
+          <a href="#prayer-times">Prayer Times</a>
           <a href="#gallery">Gallery</a>
           <a href="#about">About</a>
           <a className="button button-small" href={donationUrl}>Donate</a>
@@ -37,13 +37,13 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">A permanent home for New Westminster&apos;s Muslim community</p>
-          <h1>Help build<br /><em>New West Masjid.</em></h1>
-          <p className="hero-lede">Together, we can secure the land and open the doors to a simple, welcoming masjid built to grow with our community.</p>
+          <h1>Help build<br /><em>New West Masjid</em></h1>
+          <p className="hero-lede">Your donation makes a lasting legacy</p>
           <div className="hero-actions">
             <a className="button" href={donationUrl}>Donate to the masjid</a>
             <a className="text-link" href="#project">See the plan <span aria-hidden="true">↓</span></a>
           </div>
-          <p className="receipt-note">Donations are tax-deductible. Official receipts are issued the following year for donations made during the year.</p>
+          <p className="receipt-note">Donations are tax-deductible</p>
         </div>
 
         <aside className="fund-card" aria-label="Fundraising goal">
@@ -65,7 +65,7 @@ export default function Home() {
         <div className="project-grid">
           <div className="project-story">
             <p className="large-copy">CICSNW is working to establish the first permanent masjid and Islamic centre in New Westminster, BC.</p>
-            <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial prefab structure is designed to be extended as the community and its needs grow.</p>
+            <p>Our immediate plan is practical: acquire three adjoining properties, then build a 4,800 sq. ft. single-storey musalla. The initial pre-fabricated structure is designed to be extended as the community and its needs grow.</p>
             <a className="inline-link" href="#milestones">Explore the funding plan <span aria-hidden="true">→</span></a>
           </div>
           <div className="project-facts" aria-label="Project facts">
@@ -79,8 +79,8 @@ export default function Home() {
       <section className="milestone-section section" id="milestones">
         <div className="section-heading section-heading-light">
           <p className="eyebrow">A transparent path forward</p>
-          <h2>Four milestones. One shared destination.</h2>
-          <p>Each target moves the project from land acquisition to an open, extensible prayer space.</p>
+          <h2>Upcoming Payments</h2>
+          <p>Each target moves our community closer to a new masjid.</p>
         </div>
         <ol className="timeline">
           {milestones.map((milestone, index) => (
@@ -137,11 +137,23 @@ export default function Home() {
       <section className="community-section section" id="prayer-times">
         <div className="prayer-card">
           <div className="mini-heading"><p className="eyebrow dark">Pray with us</p><h2>Prayer times</h2><p>Live timetable for Taiba Musalla in New Westminster.</p></div>
-          <div className="prayer-link-card">
+          <div className="prayer-widget-card">
             <div className="live-badge"><span aria-hidden="true" /> Live timetable</div>
-            <p>View today&apos;s salah and iqamah times directly on Awqat.</p>
-            <div className="prayer-names" aria-label="Daily prayers"><span>Fajr</span><span>Dhuhr</span><span>Asr</span><span>Maghrib</span><span>Isha</span><span>Jumu&apos;ah</span></div>
-            <a className="button" href="https://www.awqat.net/masjid/taiba-musallah" target="_blank" rel="noreferrer">View today&apos;s prayer times <span aria-hidden="true">↗</span></a>
+            <iframe
+              className="prayer-widget prayer-widget-large"
+              src="https://timing.athanplus.com/masjid/widgets/embed?theme=6&masjid_id=adJkaqKk"
+              title="Taiba Musalla live prayer timetable — desktop view"
+              loading="lazy"
+            />
+            <iframe
+              className="prayer-widget prayer-widget-small"
+              src="https://timing.athanplus.com/masjid/widgets/embed?theme=3&masjid_id=adJkaqKk"
+              title="Taiba Musalla live prayer timetable — mobile view"
+              loading="lazy"
+            />
+            <p className="widget-fallback">
+              Timetable not appearing? <a href="https://www.awqat.net/masjid/taiba-musallah" target="_blank" rel="noreferrer">Open prayer times in a new tab <span aria-hidden="true">↗</span></a>
+            </p>
           </div>
         </div>
         <aside className="classes-card">
