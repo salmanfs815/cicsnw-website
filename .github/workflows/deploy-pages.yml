@@ -21,6 +21,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
+      VITE_BASE_PATH: /cicsnw-website/
       VITE_DONATION_URL: ${{ vars.VITE_DONATION_URL }}
       VITE_FUNDS_RAISED: ${{ vars.VITE_FUNDS_RAISED }}
       VITE_FUNDRAISING_GOAL: ${{ vars.VITE_FUNDRAISING_GOAL }}

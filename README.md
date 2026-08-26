@@ -76,13 +76,13 @@ Common platform settings:
 
 This works with services such as Cloudflare Pages, Netlify, Vercel static hosting, GitHub Pages with an appropriate base path, or conventional hosting where files are uploaded by SFTP/FTP.
 
-If the site is hosted below a subdirectory instead of at the domain root, update Vite's `base` option in `vite.config.ts` before building.
+If the site is hosted below a subdirectory instead of at the domain root, set `VITE_BASE_PATH` to that path before building.
 
 ## GitHub Pages deployment
 
 The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the site whenever `main` is pushed. In the repository's GitHub settings, open **Pages** and select **GitHub Actions** as the source.
 
-The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. The matching base path is configured in `vite.config.ts`.
+The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. Local and production builds use the `/` base path from `.env.example`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`.
 
 Build-time configuration can be added under **Settings → Secrets and variables → Actions → Variables**. Use the names documented in `.env.example`. These values are compiled into public browser code, so use repository variables—not secrets—and never store credentials in a `VITE_` variable. Unset variables use the defaults in `.env.example`.
 

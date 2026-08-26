@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    base: "/cicsnw-website/",
+    base: appEnv.VITE_BASE_PATH,
     define: Object.fromEntries(
       Object.entries(appEnv).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
     ),

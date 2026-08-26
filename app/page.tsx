@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import faqData from "../content/faqs.json";
 import galleryData from "../content/gallery.json";
 import SliderModule from "react-slick";
@@ -42,6 +42,21 @@ const funds = [
   { number: "03", name: "Zakat", detail: "Direct your zakat to community members in need." },
 ];
 
+const primaryLinks = [
+  { href: "#project", label: "Masjid Project" },
+  { href: "#milestones", label: "Milestones" },
+  { href: "#prayer-times", label: "Prayer Times" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#about", label: "About" },
+];
+
+function gallerySlidesForViewport() {
+  const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+  if (viewportWidth < 600) return 1;
+  if (viewportWidth < 900) return 2;
+  return 3;
+}
+
 function GalleryArrow({ className, onClick, direction }: CustomArrowProps & { direction: "previous" | "next" }) {
   return (
     <button className={className} type="button" onClick={onClick} aria-label={`${direction === "previous" ? "Previous" : "Next"} gallery photos`}>
@@ -61,39 +76,73 @@ const gallerySettings: Settings = {
   swipeToSlide: true,
   prevArrow: <GalleryArrow direction="previous" />,
   nextArrow: <GalleryArrow direction="next" />,
-  responsive: [
-    {
-      breakpoint: 900,
-      settings: { slidesToShow: 2, slidesToScroll: 2 },
-    },
-    {
-      breakpoint: 600,
-      settings: { slidesToShow: 1, slidesToScroll: 1 },
-    },
-  ],
 };
 
 export default function Home() {
   const [showAllFaqs, setShowAllFaqs] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(() => window.scrollY > 480);
+  const [gallerySlidesToShow, setGallerySlidesToShow] = useState(gallerySlidesForViewport);
   const visibleFaqs = showAllFaqs ? faqItems : faqItems.slice(0, initialFaqCount);
 
+  useEffect(() => {
+    const updateGallerySlides = () => setGallerySlidesToShow(gallerySlidesForViewport());
+    const updateScrollControl = () => setShowScrollToTop(window.scrollY > 480);
+    const closeMenuWithEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    updateGallerySlides();
+    updateScrollControl();
+    window.addEventListener("resize", updateGallerySlides);
+    window.visualViewport?.addEventListener("resize", updateGallerySlides);
+    window.addEventListener("scroll", updateScrollControl, { passive: true });
+    window.addEventListener("keydown", closeMenuWithEscape);
+
+    return () => {
+      window.removeEventListener("resize", updateGallerySlides);
+      window.visualViewport?.removeEventListener("resize", updateGallerySlides);
+      window.removeEventListener("scroll", updateScrollControl);
+      window.removeEventListener("keydown", closeMenuWithEscape);
+    };
+  }, []);
+
   return (
-    <main>
+    <main id="top">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="CICSNW home">
           <img className="brand-logo" src={assetPath("/cicsnw-logo.png")} alt="CICSNW — Canadian Islamic Cultural Society, Taiba Musalla" />
         </a>
-        <nav aria-label="Primary navigation">
-          <a href="#project">Masjid Project</a>
-          <a href="#milestones">Milestones</a>
-          <a href="#prayer-times">Prayer Times</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#about">About</a>
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {primaryLinks.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
           <a className="button button-small" href={siteConfig.donationUrl}>Donate</a>
         </nav>
+        <div className="mobile-header-actions">
+          <a className="button button-small mobile-donate" href={siteConfig.donationUrl}>Donate</a>
+          <button
+            className="mobile-menu-button"
+            type="button"
+            aria-label={`${mobileMenuOpen ? "Close" : "Open"} navigation menu`}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
+        </div>
+        {mobileMenuOpen && (
+          <nav className="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
+            {primaryLinks.map((link) => (
+              <a href={link.href} key={link.href} onClick={() => setMobileMenuOpen(false)}>{link.label}</a>
+            ))}
+            <a className="mobile-nav-donate" href={siteConfig.donationUrl} onClick={() => setMobileMenuOpen(false)}>Donate</a>
+          </nav>
+        )}
       </header>
 
-      <section className="hero" id="top">
+      <section className="hero">
         <div className="hero-copy">
           <p className="eyebrow">A permanent home for New Westminster&apos;s Muslim community</p>
           <h1>Help build<br /><em>New West Masjid</em></h1>
@@ -256,7 +305,12 @@ export default function Home() {
         </div>
         {galleryItems.length > 0 ? (
           <div className="gallery-carousel" role="region" aria-label="Taiba Musalla community photo gallery">
-            <Slider {...gallerySettings}>
+            <Slider
+              {...gallerySettings}
+              key={gallerySlidesToShow}
+              slidesToShow={gallerySlidesToShow}
+              slidesToScroll={gallerySlidesToShow}
+            >
               {galleryItems.map((item) => (
                 <div className="gallery-slide" key={item.src}>
                   <figure>
@@ -274,6 +328,12 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {showScrollToTop && (
+        <a className="scroll-to-top" href="#top" aria-label="Scroll to the top">
+          <span aria-hidden="true">↑</span>
+        </a>
+      )}
 
       <section className="faq-section section" id="faq">
         <div className="section-heading">
