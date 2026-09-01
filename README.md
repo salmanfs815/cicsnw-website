@@ -80,7 +80,13 @@ If the site is hosted below a subdirectory instead of at the domain root, set `V
 
 ## GitHub Pages deployment
 
-The workflow in `.github/workflows/deploy-pages.yml` builds and deploys the site whenever `main` is pushed. In the repository's GitHub settings, open **Pages** and select **GitHub Actions** as the source.
+GitHub Pages is intentionally disabled by default, and pushes to `main` do not publish the site.
+
+To temporarily enable it for testing:
+
+1. In the repository's GitHub settings, open **Pages** and set **Source** to **GitHub Actions**.
+2. Open **Actions → Deploy to GitHub Pages**, select **Run workflow**, and run it from `main`.
+3. When testing is finished, return to **Settings → Pages** and disable/unpublish the site. The deployment workflow remains available for the next test.
 
 The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. Local and production builds use the `/` base path from `.env.example`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`.
 
