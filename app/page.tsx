@@ -250,7 +250,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="give-section section" id="give">
+      {/* <section className="give-section section" id="give">
         <div className="give-intro">
           <p className="eyebrow">Give with purpose</p>
           <h2>Donation Options</h2>
@@ -265,7 +265,7 @@ export default function Home() {
             </a>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section className="community-section section" id="prayer-times">
         <div className="prayer-card">
