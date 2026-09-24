@@ -18,6 +18,15 @@ export default defineConfig(({ mode }) => {
     define: Object.fromEntries(
       Object.entries(appEnv).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
     ),
-    build: { outDir: "dist", emptyOutDir: true },
+    build: {
+      outDir: "dist",
+      emptyOutDir: true,
+      rollupOptions: {
+        input: {
+          main: resolve(process.cwd(), "index.html"),
+          ambassador: resolve(process.cwd(), "ambassador.html"),
+        },
+      },
+    },
   };
 });

@@ -10,9 +10,9 @@ The site has no backend, database, accounts, or login requirement. A production 
 - TypeScript for type checking
 - Vite 8 for local development and production builds
 - Plain CSS in `app/globals.css` for the visual design and responsive layout
-- JSON in `content/gallery.json` for the maintainable gallery list
+- JSON in `content/gallery.json` and `content/ambassadors.json` for maintainable content lists
 
-The main page component is `app/page.tsx`. The browser entry point is `src/main.tsx`. Files placed in `public/` are copied unchanged to the root of the production site.
+The site is a small multi-page Vite build. The main page component is `app/page.tsx`, with browser entry point `src/main.tsx` and HTML entry `index.html`. The Ambassador Program page component is `app/ambassador/page.tsx`, with browser entry point `src/ambassador.tsx` and HTML entry `ambassador.html`. Both pages share the header, footer, and scroll-to-top button in `app/components/`. Files placed in `public/` are copied unchanged to the root of the production site.
 
 ## Requirements
 
@@ -111,6 +111,21 @@ Build-time configuration can be added under **Settings → Secrets and variables
 
 The gallery automatically includes each valid entry in its carousel. Push the change to `main` to deploy the update.
 
+## Recognizing ambassadors
+
+Once an ambassador's combined donations and pledges reach $10,000, add them to the recognition wall on the Ambassador Program page by adding an entry to `content/ambassadors.json`:
+
+```json
+[
+  {
+    "name": "Jane Doe",
+    "recognizedDate": "September 2026"
+  }
+]
+```
+
+Push the change to `main` to deploy the update.
+
 ## Logo and other public files
 
 The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with the same filename to update the logo everywhere without editing the page component.
@@ -121,7 +136,7 @@ The two Athan+ widget URLs and the Awqat fallback URL are configured through `VI
 
 ## Important maintenance notes
 
-- This is a single-page static site. Navigation links scroll to sections on the same page.
+- This is a static multi-page site with two HTML entry points (`index.html` and `ambassador.html`). Within each page, navigation links scroll to sections on that same page.
 - There is no server-side code, authentication, database, or content-management system.
 - Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
 - The values in `.env.example` are not secret and are safe to configure in the hosting provider.
