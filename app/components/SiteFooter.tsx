@@ -1,3 +1,4 @@
+import { donateTracking } from "../analytics";
 import { assetPath } from "../assetPath";
 import { siteConfig } from "../siteConfig";
 
@@ -30,7 +31,7 @@ export default function SiteFooter() {
           </a>
         </div>
       </div>
-      <div className="footer-action"><a className="button" href={siteConfig.donationUrl}>Donate now</a></div>
+      <div className="footer-action"><a className="button" href={siteConfig.donationUrl} {...donateTracking("footer")}>Donate now</a></div>
       <p className="copyright">© {new Date().getFullYear()} CICS. CRA Registered Charity BN {siteConfig.charityRegistrationNumber}.</p>
     </footer>
   );

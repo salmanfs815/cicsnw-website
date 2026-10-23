@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { donateTracking } from "../analytics";
 import { assetPath } from "../assetPath";
 import { siteConfig } from "../siteConfig";
 
@@ -22,10 +23,10 @@ export default function SiteHeader({ navLinks, homeHref = "#top" }: { navLinks: 
       </a>
       <nav className="desktop-nav" aria-label="Primary navigation">
         {navLinks.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
-        <a className="button button-small" href={siteConfig.donationUrl}>Donate</a>
+        <a className="button button-small" href={siteConfig.donationUrl} {...donateTracking("header")}>Donate</a>
       </nav>
       <div className="mobile-header-actions">
-        <a className="button button-small mobile-donate" href={siteConfig.donationUrl}>Donate</a>
+        <a className="button button-small mobile-donate" href={siteConfig.donationUrl} {...donateTracking("header-mobile")}>Donate</a>
         <button
           className="mobile-menu-button"
           type="button"
@@ -44,7 +45,7 @@ export default function SiteHeader({ navLinks, homeHref = "#top" }: { navLinks: 
           {navLinks.map((link) => (
             <a href={link.href} key={link.href} onClick={() => setMobileMenuOpen(false)}>{link.label}</a>
           ))}
-          <a className="mobile-nav-donate" href={siteConfig.donationUrl} onClick={() => setMobileMenuOpen(false)}>Donate</a>
+          <a className="mobile-nav-donate" href={siteConfig.donationUrl} {...donateTracking("mobile-menu")} onClick={() => setMobileMenuOpen(false)}>Donate</a>
         </nav>
       )}
     </header>

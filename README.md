@@ -134,6 +134,22 @@ The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with 
 
 The two Athan+ widget URLs and the Awqat fallback URL are configured through `VITE_ATHAN_DESKTOP_EMBED_URL`, `VITE_ATHAN_MOBILE_EMBED_URL`, and `VITE_AWQAT_URL`.
 
+## Analytics
+
+The site uses [Umami Cloud](https://cloud.umami.is) for privacy-friendly, cookieless analytics: page views, traffic sources, locations, and donate-button clicks. Because it sets no cookies and collects no personal information, no cookie banner is needed.
+
+To enable it, add the site in Umami, copy its website ID, and set `VITE_UMAMI_WEBSITE_ID` in `.env.local` before running `npm run build`. The tracker is only added to production builds, so `npm run dev` never records visits. Leaving the variable blank builds the site without analytics.
+
+Every donate link sends a **Donate click** event with a `location` property (`header`, `header-mobile`, `mobile-menu`, `hero`, `sponsor`, `ambassador-pledge`, or `footer`). New donate links should use the same tracking:
+
+```tsx
+<a href={siteConfig.donationUrl} {...donateTracking("new-location")}>Donate</a>
+```
+
+Umami records the click, not the donation itself; completed donations are reported by the donation platform.
+
+Visits from WhatsApp, Instagram, and email often arrive without referrer information and appear as direct traffic. Add UTM parameters to links shared there so Umami can attribute them, for example `https://cicsnw.org/?utm_source=whatsapp&utm_campaign=masjid-launch`.
+
 ## Important maintenance notes
 
 - This is a static multi-page site with two HTML entry points (`index.html` and `ambassador.html`). Within each page, navigation links scroll to sections on that same page.

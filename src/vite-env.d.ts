@@ -31,6 +31,7 @@ interface ImportMetaEnv {
   readonly VITE_ATHAN_DESKTOP_EMBED_URL?: string;
   readonly VITE_ATHAN_MOBILE_EMBED_URL?: string;
   readonly VITE_AWQAT_URL?: string;
+  readonly VITE_UMAMI_WEBSITE_ID?: string;
 }
 
 interface ImportMeta {

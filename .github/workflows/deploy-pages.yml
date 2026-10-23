@@ -50,6 +50,7 @@ jobs:
       VITE_ATHAN_DESKTOP_EMBED_URL: ${{ vars.VITE_ATHAN_DESKTOP_EMBED_URL }}
       VITE_ATHAN_MOBILE_EMBED_URL: ${{ vars.VITE_ATHAN_MOBILE_EMBED_URL }}
       VITE_AWQAT_URL: ${{ vars.VITE_AWQAT_URL }}
+      VITE_UMAMI_WEBSITE_ID: ${{ vars.VITE_UMAMI_WEBSITE_ID }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v7

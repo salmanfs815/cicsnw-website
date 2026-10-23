@@ -5,6 +5,7 @@ import SliderModule from "react-slick";
 import type { CustomArrowProps, Settings } from "react-slick";
 import { siteConfig } from "./siteConfig";
 import { assetPath } from "./assetPath";
+import { donateTracking } from "./analytics";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import ScrollToTopButton from "./components/ScrollToTopButton";
@@ -41,7 +42,7 @@ const classesEmailHref = `mailto:${siteConfig.classesEmail}?subject=Evening%20Qu
 const currentYear = new Date().getFullYear();
 
 const ambassadorPaths = [
-  { number: "01", name: "Donate or pledge $10,000", detail: "Become an ambassador yourself with a personal gift or pledge.", href: siteConfig.donationUrl },
+  { number: "01", name: "Donate or pledge $10,000", detail: "Become an ambassador yourself with a personal gift or pledge.", href: siteConfig.donationUrl, tracking: donateTracking("ambassador-pledge") },
   { number: "02", name: "Fundraise $10,000", detail: "Share the project with your network and collect donations and pledges.", href: assetPath("ambassador.html") },
 ];
 
@@ -109,7 +110,7 @@ export default function Home() {
           <h1>Help build<br /><em>New West Masjid</em></h1>
           <p className="hero-lede">Your donation makes a lasting legacy</p>
           <div className="hero-actions">
-            <a className="button" href={siteConfig.donationUrl}>Donate to the masjid</a>
+            <a className="button" href={siteConfig.donationUrl} {...donateTracking("hero")}>Donate to the masjid</a>
             <a className="text-link" href="#project">See the plan <span aria-hidden="true">↓</span></a>
           </div>
           <p className="receipt-note">Donations are tax-deductible</p>
@@ -196,7 +197,7 @@ export default function Home() {
           <h2>Sponsor a prayer space.</h2>
           <p>With a {currency.format(siteConfig.sponsorshipAmount)} gift, help create a dedicated musalla spot where generations can stand together in salah.</p>
         </div>
-        <a className="button" href={siteConfig.donationUrl}>Sponsor a spot — {currency.format(siteConfig.sponsorshipAmount)}</a>
+        <a className="button" href={siteConfig.donationUrl} {...donateTracking("sponsor")}>Sponsor a spot — {currency.format(siteConfig.sponsorshipAmount)}</a>
       </section>
 
       <section className="sustain-section section">
@@ -225,7 +226,7 @@ export default function Home() {
         </div>
         <div className="fund-list">
           {ambassadorPaths.map((path) => (
-            <a href={path.href} key={path.number}>
+            <a href={path.href} key={path.number} {...path.tracking}>
               <span>{path.number}</span><div><h3>{path.name}</h3><p>{path.detail}</p></div><b aria-hidden="true">↗</b>
             </a>
           ))}
