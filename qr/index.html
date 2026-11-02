@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <noscript><meta http-equiv="refresh" content="0; url=%VITE_DONATION_URL%" /></noscript>
+    <title>Donate | New West Masjid</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; box-sizing: border-box; background: #f7f4eb; color: #13362f; font-family: Georgia, "Times New Roman", serif; font-size: 20px; text-align: center; }
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <p>Taking you to the donation page&hellip;<br /><a id="donate-link" href="%VITE_DONATION_URL%">Continue to donate</a></p>
+    <script>
+      // The flyer QR code opens this page so Umami can count scans as visits to /qr/.
+      // Umami sends its page view as the page finishes loading, so continue right after
+      // that. The timer gets donors through even if Umami is slow or blocked.
+      (function () {
+        function continueToDonate() {
+          location.replace(document.getElementById("donate-link").href);
+        }
+        addEventListener("load", function () { setTimeout(continueToDonate, 100); });
+        setTimeout(continueToDonate, 1500);
+      })();
+    </script>
+  </body>
+</html>

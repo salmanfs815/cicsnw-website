@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => {
         input: {
           main: resolve(process.cwd(), "index.html"),
           ambassador: resolve(process.cwd(), "ambassador.html"),
+          qr: resolve(process.cwd(), "qr/index.html"),
         },
       },
     },

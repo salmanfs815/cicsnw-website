@@ -150,9 +150,18 @@ Umami records the click, not the donation itself; completed donations are report
 
 Visits from WhatsApp, Instagram, and email often arrive without referrer information and appear as direct traffic. Add UTM parameters to links shared there so Umami can attribute them, for example `https://cicsnw.org/?utm_source=whatsapp&utm_campaign=masjid-launch`.
 
+### Flyer tracking
+
+Flyers use two addresses, so their traffic can be separated from other visits:
+
+- **QR code: `https://cicsnw.org/qr/`.** This page (`qr/index.html`) lets Umami record the visit, then sends the person to `VITE_DONATION_URL`. In Umami, visits to `/qr/` are the scan count. The page still continues to the donation page if Umami is slow or blocked, but those scans are not counted. The print-ready codes are `flyer/donate-qr-code.svg` and `flyer/donate-qr-code.png`.
+- **Printed web address: `cicsnw.org/masjid`.** This page (`public/masjid/index.html`) forwards to the home page with `utm_source=flyer`, `utm_medium=print`, and `utm_campaign=new-masjid`, so the visit appears under those UTM values in Umami.
+
+Keep both pages on the site for as long as flyers are in circulation. Removing or renaming either one breaks the printed flyers.
+
 ## Important maintenance notes
 
-- This is a static multi-page site with two HTML entry points (`index.html` and `ambassador.html`). Within each page, navigation links scroll to sections on that same page.
+- This is a static multi-page site with two content pages (`index.html` and `ambassador.html`) plus the flyer redirect pages described under [Flyer tracking](#flyer-tracking). Within each content page, navigation links scroll to sections on that same page.
 - There is no server-side code, authentication, database, or content-management system.
 - Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
 - The values in `.env.example` are not secret and are safe to configure in the hosting provider.
