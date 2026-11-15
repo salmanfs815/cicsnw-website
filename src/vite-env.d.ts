@@ -28,12 +28,23 @@ interface ImportMetaEnv {
   readonly VITE_FACEBOOK_URL?: string;
   readonly VITE_INSTAGRAM_URL?: string;
   readonly VITE_YOUTUBE_URL?: string;
-  readonly VITE_ATHAN_DESKTOP_EMBED_URL?: string;
-  readonly VITE_ATHAN_MOBILE_EMBED_URL?: string;
+  readonly VITE_MASJIDAL_WIDGET_ID?: string;
+  readonly VITE_MASJIDAL_API_KEY?: string;
   readonly VITE_AWQAT_URL?: string;
   readonly VITE_UMAMI_WEBSITE_ID?: string;
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+// Custom element registered by the Masjidal widget script loaded in index.html.
+declare namespace React.JSX {
+  interface IntrinsicElements {
+    "masjidal-widget": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+      "widget-id": string;
+      "api-key": string;
+      type: "prayer";
+    };
+  }
 }

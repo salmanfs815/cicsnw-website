@@ -238,18 +238,14 @@ export default function Home() {
           <div className="mini-heading"><p className="eyebrow dark">Pray with us</p><h2>Prayer times</h2><p>Live timetable for Taiba Musalla in New Westminster.</p></div>
           <div className="prayer-widget-card">
             <div className="live-badge"><span aria-hidden="true" /> Live timetable</div>
-            <iframe
-              className="prayer-widget prayer-widget-large"
-              src={siteConfig.athanDesktopEmbedUrl}
-              title="Taiba Musalla live prayer timetable — desktop view"
-              loading="lazy"
-            />
-            <iframe
-              className="prayer-widget prayer-widget-small"
-              src={siteConfig.athanMobileEmbedUrl}
-              title="Taiba Musalla live prayer timetable — mobile view"
-              loading="lazy"
-            />
+            {siteConfig.masjidalWidgetId && siteConfig.masjidalApiKey && (
+              <masjidal-widget
+                className="prayer-widget"
+                widget-id={siteConfig.masjidalWidgetId}
+                type="prayer"
+                api-key={siteConfig.masjidalApiKey}
+              />
+            )}
             <p className="widget-fallback">
               Timetable not appearing? <a href={siteConfig.awqatUrl} target="_blank" rel="noreferrer">Open prayer times in a new tab <span aria-hidden="true">↗</span></a>
             </p>

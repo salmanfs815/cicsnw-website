@@ -132,7 +132,7 @@ The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with 
 
 ## Prayer times
 
-The two Athan+ widget URLs and the Awqat fallback URL are configured through `VITE_ATHAN_DESKTOP_EMBED_URL`, `VITE_ATHAN_MOBILE_EMBED_URL`, and `VITE_AWQAT_URL`.
+The live timetable is the Masjidal prayer times widget. Its widget ID and public API key (from Masjidal **Integrations → Widgets → Publish → Embed**) are set through `VITE_MASJIDAL_WIDGET_ID` and `VITE_MASJIDAL_API_KEY` in `.env`. The widget script itself is loaded in the `<head>` of `index.html`. If either value is blank, the timetable is hidden and only the Awqat fallback link (`VITE_AWQAT_URL`) is shown.
 
 ## Analytics
 

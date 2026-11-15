@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => {
           main: resolve(process.cwd(), "index.html"),
           ambassador: resolve(process.cwd(), "ambassador.html"),
           qr: resolve(process.cwd(), "qr/index.html"),
+          donate: resolve(process.cwd(), "donate/index.html"),
         },
       },
     },
