@@ -159,9 +159,19 @@ Flyers use two addresses, so their traffic can be separated from other visits:
 
 Keep both pages on the site for as long as flyers are in circulation. Removing or renaming either one breaks the printed flyers.
 
+### Donation links for social media
+
+To count donation-page visits from a channel, link to `https://cicsnw.org/donate/` with UTM parameters instead of linking to the donation platform directly. This page (`donate/index.html`) works like `/qr/`: Umami records the visit with its UTM values, then the page sends the person to `VITE_DONATION_URL`. For example, the Instagram donation link is:
+
+```text
+https://cicsnw.org/donate/?utm_source=instagram&utm_medium=social&utm_campaign=new-masjid
+```
+
+In Umami, visits to `/donate/` are donation-link clicks, and UTM Source shows which channel they came from. Keep this page on the site while any of these links are posted.
+
 ## Important maintenance notes
 
-- This is a static multi-page site with two content pages (`index.html` and `ambassador.html`) plus the flyer redirect pages described under [Flyer tracking](#flyer-tracking). Within each content page, navigation links scroll to sections on that same page.
+- This is a static multi-page site with two content pages (`index.html` and `ambassador.html`) plus the redirect pages described under [Flyer tracking](#flyer-tracking) and [Donation links for social media](#donation-links-for-social-media). Within each content page, navigation links scroll to sections on that same page.
 - There is no server-side code, authentication, database, or content-management system.
 - Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
 - The values in `.env.example` are not secret and are safe to configure in the hosting provider.
