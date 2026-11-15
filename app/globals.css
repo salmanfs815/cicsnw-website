@@ -108,7 +108,52 @@ h3 { font-family:Georgia,serif; font-size:26px; font-weight:400; }
 .prayer-widget-card { padding:20px; background:#f5f3ec; border:1px solid #ded8c9; border-radius:18px; box-shadow:0 18px 50px rgba(19,44,37,.08); overflow:hidden; }
 .live-badge { color:#536a62; font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
 .live-badge span { display:inline-block; width:8px; height:8px; margin-right:8px; border-radius:50%; background:#3c8b69; box-shadow:0 0 0 4px rgba(60,139,105,.13); }
-.prayer-widget { display:block; width:100%; margin-top:18px; border-radius:12px; overflow:hidden; }
+.pt-card { max-width:560px; margin:18px auto 0; padding:28px; background:var(--white); border:1px solid #e4dfd2; border-radius:20px; }
+.pt-card p { margin:0; line-height:1.3; }
+.pt-loading { min-height:440px; display:grid; place-items:center; color:#687d76; font-size:14px; }
+.pt-next { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; padding-bottom:20px; border-bottom:1px solid #e7e2d6; }
+.pt-label { margin-bottom:6px !important; color:#687d76; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.pt-next-name { font-family:Georgia,serif; font-size:26px; }
+.pt-next-name small { margin-left:8px; color:#687d76; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.pt-next-time { text-align:right; }
+.pt-clock { display:inline-flex; align-items:baseline; gap:5px; white-space:nowrap; }
+.pt-clock strong { font-size:28px; line-height:1; letter-spacing:-.02em; }
+.pt-clock span { color:#687d76; font-size:14px; font-weight:700; }
+.pt-next .pt-clock strong { font-size:40px; }
+.pt-next .pt-clock span { font-size:18px; }
+.pt-countdown { margin-top:6px !important; color:#687d76; font-size:14px; }
+.pt-countdown b { color:var(--green); }
+.pt-day { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:20px 0 16px; }
+.pt-date { font-size:16px; font-weight:700; }
+.pt-hijri { margin-top:3px !important; color:var(--green); font-family:Georgia,serif; font-size:14px; font-style:italic; }
+.pt-nav,.pt-dots { display:flex; align-items:center; gap:6px; }
+.pt-arrow { display:grid; place-items:center; width:36px; height:36px; padding:0 0 2px; border:1px solid #ddd8ca; border-radius:50%; background:#fff; color:var(--ink); font-size:20px; line-height:1; cursor:pointer; }
+.pt-arrow:disabled { opacity:.35; cursor:default; }
+.pt-dot { width:9px; height:9px; padding:0; border:0; border-radius:50%; background:#d8d3c6; cursor:pointer; }
+.pt-dot[aria-pressed="true"] { background:var(--green); }
+.pt-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0; padding:0; list-style:none; }
+.pt-tile { padding:14px 16px; border:1px solid #ece7db; border-radius:12px; background:#fff; transition:opacity .2s ease; }
+.pt-tile.is-past { opacity:.45; }
+.pt-tile.is-next { background:#eef3ec; border-color:var(--green); box-shadow:inset 0 0 0 1px var(--green); }
+.pt-tile-name { display:flex; align-items:center; gap:10px; color:#4f655d; font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.pt-tile .pt-clock { margin:12px 0 6px; }
+.pt-icon { display:grid; flex:none; place-items:center; width:30px; height:30px; border-radius:8px; background:#f1eee5; color:var(--green); }
+.pt-icon svg { width:17px; height:17px; }
+.pt-tile.is-next .pt-icon { background:#dce8dd; }
+.pt-icon-solid { width:40px; height:40px; border-radius:10px; background:var(--green); color:var(--white); font-size:17px; }
+.pt-iqamah { color:#687d76; font-size:13px; }
+.pt-jumuah { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; padding:14px 16px; border:1px solid #ece7db; border-radius:12px; background:#fff; }
+.pt-jumuah-title { display:flex; align-items:center; gap:12px; }
+.pt-jumuah-name { font-family:Georgia,serif; font-size:19px; }
+.pt-jumuah-note { margin-top:2px !important; color:#687d76; font-size:13px; }
+.pt-jumuah-times { display:flex; gap:8px; }
+.pt-jumuah-times p { min-width:92px; padding:7px 12px; border-radius:8px; background:var(--cream); text-align:center; }
+.pt-jumuah-times small { display:block; color:#687d76; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.pt-jumuah-times b { font-size:16px; white-space:nowrap; }
+.pt-footer { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:18px; padding-top:16px; border-top:1px solid #e7e2d6; color:#687d76; font-size:13px; }
+.pt-footer a { white-space:nowrap; }
+.pt-footer a:first-child { color:var(--green); font-weight:700; }
+.pt-footer b { color:var(--ink); }
 .widget-fallback { margin:14px 0 0; color:#60736c; font-size:12px; text-align:center; }
 .widget-fallback a { color:#173f35; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 .classes-card { background:#9c7736; color:var(--white); padding:48px 40px; display:flex; flex-direction:column; justify-content:center; }
@@ -196,6 +241,6 @@ address,footer a { color:#91a69f; font-size:13px; font-style:normal; line-height
 .contact-options .contact-value { font-family:Georgia,serif; font-size:19px; }
 .contact-options p { color:#adbfba; font-size:13px; margin:0; }
 @media (max-width:900px) { .desktop-nav{display:none}.mobile-header-actions{display:flex;align-items:center;gap:10px}.mobile-menu-button{display:grid;align-content:center;gap:4px;width:42px;height:42px;padding:0 10px;border:1px solid #bdc8c3;border-radius:3px;background:transparent;color:var(--ink);cursor:pointer}.mobile-menu-button span{display:block;width:20px;height:2px;background:currentColor}.mobile-nav{position:absolute;top:calc(100% - 1px);right:0;display:grid;width:min(310px,calc(100vw - 28px));padding:10px;background:var(--white);border:1px solid #d7dfda;box-shadow:0 18px 45px rgba(19,54,47,.18);font-size:14px;font-weight:700}.mobile-nav a{padding:15px 16px;border-bottom:1px solid #e5e9e6}.mobile-nav a:last-child{border-bottom:0}.mobile-nav-donate{margin-top:6px;background:var(--gold);color:#132c25;text-align:center}.hero{grid-template-columns:1fr;padding:76px 28px}.fund-card{max-width:560px}.project-grid,.site-location-card,.give-section,.community-section,.about-grid{grid-template-columns:1fr}.site-location-image,.site-location-image img{min-height:0}.site-location-image img{aspect-ratio:4/3}.timeline{grid-template-columns:1fr 1fr;gap:52px}.timeline::before{display:none}.timeline-dot{margin:15px 0}.sponsor-section{grid-template-columns:1fr}.sponsor-number{display:none}.sustain-grid{grid-template-columns:1fr}.sustain-grid article,.sustain-grid article+article{padding:26px 0;border-right:0;border-bottom:1px solid #ccd6d0}footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.gallery-empty{grid-template-columns:1fr 1fr}.gallery-empty>p{grid-column:1/-1}.ambassador-steps{grid-template-columns:1fr 1fr}.ambassador-wall{grid-template-columns:1fr 1fr}.contact-options{grid-template-columns:1fr} }
-@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-widget-card{padding:12px;border-radius:14px}.prayer-widget{margin-top:14px;border-radius:9px}.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.faq-item summary{grid-template-columns:32px minmax(0,1fr) 32px;gap:12px;padding:22px 0}.faq-answer{padding:0 0 24px 44px}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px}.ambassador-hero{padding:70px 20px 56px}.ambassador-steps{grid-template-columns:1fr}.ambassador-wall{grid-template-columns:1fr} }
+@media (max-width:560px) { .site-header{width:calc(100% - 28px);height:76px}.brand-logo{width:190px}.button-small{min-height:40px;padding:0 14px}h1{font-size:51px}.hero{padding:62px 20px;gap:48px}.fund-card{padding:28px}.hero-lede{font-size:17px}.milestone-callout{align-items:flex-start;flex-direction:column}.section{padding:82px 20px}.project-facts>div{grid-template-columns:130px 1fr}.project-facts strong{font-size:32px}.timeline{grid-template-columns:1fr}.sustain-grid{grid-template-columns:1fr}.give-section{gap:70px}.mini-heading{grid-template-columns:1fr}.mini-heading h2{margin-bottom:10px}.prayer-card{padding:22px 16px}.prayer-widget-card{padding:12px;border-radius:14px}.pt-card{margin-top:14px;padding:18px 14px;border-radius:14px}.pt-next .pt-clock strong{font-size:32px}.pt-next .pt-clock span{font-size:15px}.pt-next-name{font-size:22px}.pt-day{flex-wrap:wrap}.pt-grid{gap:8px}.pt-tile{padding:12px}.pt-tile-name{gap:8px;font-size:11px;letter-spacing:.08em}.pt-icon{width:26px;height:26px}.pt-clock strong{font-size:23px}.pt-clock span{font-size:12px}.pt-iqamah{font-size:12px}.pt-jumuah{flex-direction:column;align-items:stretch}.pt-jumuah-times p{flex:1;min-width:0}.gallery-empty{grid-template-columns:1fr}.gallery-empty>p{grid-column:1}.faq-item summary{grid-template-columns:32px minmax(0,1fr) 32px;gap:12px;padding:22px 0}.faq-answer{padding:0 0 24px 44px}.classes-card{padding:46px 28px}footer{grid-template-columns:1fr;padding:60px 20px 28px}.footer-brand{grid-column:auto}.copyright{grid-column:1}.footer-action{margin-top:12px}.ambassador-hero{padding:70px 20px 56px}.ambassador-steps{grid-template-columns:1fr}.ambassador-wall{grid-template-columns:1fr} }
 @media (max-width:360px) { .brand-logo{width:180px}.mobile-donate{display:none} }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.button,.scroll-to-top{transition:none} }

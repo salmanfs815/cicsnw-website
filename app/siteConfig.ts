@@ -36,7 +36,6 @@ export const siteConfig = {
   facebookUrl: requiredValue("VITE_FACEBOOK_URL", import.meta.env.VITE_FACEBOOK_URL),
   instagramUrl: requiredValue("VITE_INSTAGRAM_URL", import.meta.env.VITE_INSTAGRAM_URL),
   youtubeUrl: requiredValue("VITE_YOUTUBE_URL", import.meta.env.VITE_YOUTUBE_URL),
-  masjidalWidgetId: import.meta.env.VITE_MASJIDAL_WIDGET_ID?.trim() ?? "",
   masjidalApiKey: import.meta.env.VITE_MASJIDAL_API_KEY?.trim() ?? "",
   awqatUrl: requiredValue("VITE_AWQAT_URL", import.meta.env.VITE_AWQAT_URL),
 };

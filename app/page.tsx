@@ -9,6 +9,7 @@ import { donateTracking } from "./analytics";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import PrayerTimes from "./components/PrayerTimes";
 
 type GalleryItem = { src: string; alt: string; caption?: string };
 type FaqItem = { question: string; answer: string };
@@ -238,17 +239,7 @@ export default function Home() {
           <div className="mini-heading"><p className="eyebrow dark">Pray with us</p><h2>Prayer times</h2><p>Live timetable for Taiba Musalla in New Westminster.</p></div>
           <div className="prayer-widget-card">
             <div className="live-badge"><span aria-hidden="true" /> Live timetable</div>
-            {siteConfig.masjidalWidgetId && siteConfig.masjidalApiKey && (
-              <masjidal-widget
-                className="prayer-widget"
-                widget-id={siteConfig.masjidalWidgetId}
-                type="prayer"
-                api-key={siteConfig.masjidalApiKey}
-              />
-            )}
-            <p className="widget-fallback">
-              Timetable not appearing? <a href={siteConfig.awqatUrl} target="_blank" rel="noreferrer">Open prayer times in a new tab <span aria-hidden="true">↗</span></a>
-            </p>
+            <PrayerTimes />
           </div>
         </div>
         <aside className="classes-card">

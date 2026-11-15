@@ -132,7 +132,7 @@ The supplied logo is stored at `public/cicsnw-logo.png`. Replace that file with 
 
 ## Prayer times
 
-The live timetable is the Masjidal prayer times widget. Its widget ID and public API key (from Masjidal **Integrations → Widgets → Publish → Embed**) are set through `VITE_MASJIDAL_WIDGET_ID` and `VITE_MASJIDAL_API_KEY` in `.env`. The widget script itself is loaded in the `<head>` of `index.html`. If either value is blank, the timetable is hidden and only the Awqat fallback link (`VITE_AWQAT_URL`) is shown.
+The live timetable (`app/components/PrayerTimes.tsx`) is the site's own design, filled with data from the Masjidal API. Set the public Masjidal API key (`msj_pk_…`, from Masjidal **Integrations → Widgets → Publish → Embed**) as `VITE_MASJIDAL_API_KEY` in `.env`. The key only works on the domains allowed for it in Masjidal, so the timetable cannot load on `localhost`. If the key is blank or the request fails, only the Awqat link (`VITE_AWQAT_URL`) is shown; that page is also the card's monthly timetable link.
 
 ## Analytics
 
