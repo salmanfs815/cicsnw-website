@@ -1,6 +1,4 @@
-import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { parseEnv } from "node:util";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -17,19 +15,13 @@ function umamiAnalytics(websiteId: string | undefined): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-  const exampleEnv = parseEnv(readFileSync(resolve(process.cwd(), ".env.example"), "utf8"));
-  const configuredEnv = loadEnv(mode, process.cwd(), "VITE_");
-  const appEnv = {
-    ...Object.fromEntries(Object.entries(exampleEnv).filter(([key]) => key.startsWith("VITE_"))),
-    ...Object.fromEntries(Object.entries(configuredEnv).filter(([, value]) => value.trim() !== "")),
-  };
+  // Site configuration lives in the committed `.env` (optionally overridden by `.env.local`
+  // or `VITE_*` environment variables). Vite exposes these to app code as import.meta.env.
+  const env = loadEnv(mode, process.cwd(), "VITE_");
 
   return {
-    plugins: [react(), umamiAnalytics(appEnv.VITE_UMAMI_WEBSITE_ID)],
-    base: appEnv.VITE_BASE_PATH,
-    define: Object.fromEntries(
-      Object.entries(appEnv).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)]),
-    ),
+    plugins: [react(), umamiAnalytics(env.VITE_UMAMI_WEBSITE_ID)],
+    base: env.VITE_BASE_PATH || "/",
     build: {
       outDir: "dist",
       emptyOutDir: true,

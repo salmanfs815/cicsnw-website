@@ -25,7 +25,7 @@ The site is a small multi-page Vite build. The main page component is `app/page.
 npm install
 ```
 
-Copy `.env.example` to `.env.local`, then update the public site configuration values. For example:
+Site configuration lives in `.env`, which is committed to the repository. Edit it and push to `main` to update the live site. For example:
 
 ```env
 VITE_DONATION_URL=https://your-fundraising-platform.example/donate
@@ -33,9 +33,11 @@ VITE_FUNDS_RAISED=10000
 VITE_CONTACT_EMAIL=contact@cicsnw.org
 ```
 
+To try values locally without committing them, put overrides in `.env.local` (git-ignored).
+
 The environment file controls the fundraising totals and milestones, sponsorship amount, contact details, address, CRA registration number, social links, and prayer-time URLs. Monetary values are entered as plain numbers without `$` signs or commas. Restart the development server after changing an environment variable.
 
-All variables exposed to the browser must begin with `VITE_`. These values are public configuration, not secrets. When deploying through a hosting provider, add the same variables in that provider's environment-variable settings before building.
+All variables exposed to the browser must begin with `VITE_`. These values are public configuration, not secrets, which is why `.env` can be committed. Never put a real secret in `.env`.
 
 ## Local development
 
@@ -63,7 +65,26 @@ To check the production build locally:
 npm run preview
 ```
 
-## Uploading to a hosting service
+## Deployment (Bluehost)
+
+The live site at `https://cicsnw.org` is hosted on Bluehost. Every push to `main` runs **Actions → Deploy to Bluehost** (`.github/workflows/deploy-bluehost.yml`), which builds the site and uploads `dist/` over FTPS. It can also be run by hand from the Actions tab with **Run workflow**.
+
+Only changed files are uploaded. The action keeps a `.ftp-deploy-sync-state.json` file in the server directory to track what it uploaded last time; don't delete it (if it goes missing, the next deploy simply re-uploads everything). Files on the server that the action never uploaded, such as `.htaccess`, are left alone.
+
+### One-time setup
+
+In the repository on GitHub, open **Settings → Secrets and variables → Actions** and add:
+
+| Kind | Name | Value |
+| --- | --- | --- |
+| Secret | `FTP_SERVER` | FTP host name, e.g. `ftp.cicsnw.org` |
+| Secret | `FTP_USERNAME` | FTP account user name (from Bluehost cPanel → FTP Accounts) |
+| Secret | `FTP_PASSWORD` | That account's password |
+| Variable | `FTP_SERVER_DIR` | Folder to upload into, relative to the FTP account's home, ending in `/` — e.g. `public_html/`, or `./` if the account opens directly in the site folder |
+
+Use the same folder you currently upload `dist/` into by hand. A dedicated FTP account limited to that folder is safest.
+
+## Uploading to another hosting service
 
 Upload the **contents of `dist/`** to the hosting service's public web root. Do not upload `src/`, `app/`, `node_modules/`, or the project root as the public website.
 
@@ -88,9 +109,7 @@ To temporarily enable it for testing:
 2. Open **Actions → Deploy to GitHub Pages**, select **Run workflow**, and run it from `main`.
 3. When testing is finished, return to **Settings → Pages** and disable/unpublish the site. The deployment workflow remains available for the next test.
 
-The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. Local and production builds use the `/` base path from `.env.example`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`.
-
-Build-time configuration can be added under **Settings → Secrets and variables → Actions → Variables**. Use the names documented in `.env.example`. These values are compiled into public browser code, so use repository variables—not secrets—and never store credentials in a `VITE_` variable. Unset variables use the defaults in `.env.example`.
+The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. Local and production builds use the `/` base path from `.env`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`.
 
 ## Adding gallery photos
 
@@ -138,7 +157,7 @@ The live timetable (`app/components/PrayerTimes.tsx`) is the site's own design, 
 
 The site uses [Umami Cloud](https://cloud.umami.is) for privacy-friendly, cookieless analytics: page views, traffic sources, locations, and donate-button clicks. Because it sets no cookies and collects no personal information, no cookie banner is needed.
 
-To enable it, add the site in Umami, copy its website ID, and set `VITE_UMAMI_WEBSITE_ID` in `.env.local` before running `npm run build`. The tracker is only added to production builds, so `npm run dev` never records visits. Leaving the variable blank builds the site without analytics.
+To enable it, add the site in Umami, copy its website ID, and set `VITE_UMAMI_WEBSITE_ID` in `.env`. The tracker is only added to production builds, so `npm run dev` never records visits. Leaving the variable blank builds the site without analytics.
 
 Every donate link sends a **Donate click** event with a `location` property (`header`, `header-mobile`, `mobile-menu`, `hero`, `sponsor`, `ambassador-pledge`, or `footer`). New donate links should use the same tracking:
 
@@ -174,6 +193,6 @@ In Umami, visits to `/donate/` are donation-link clicks, and UTM Source shows wh
 - This is a static multi-page site with two content pages (`index.html` and `ambassador.html`) plus the redirect pages described under [Flyer tracking](#flyer-tracking) and [Donation links for social media](#donation-links-for-social-media). Within each content page, navigation links scroll to sections on that same page.
 - There is no server-side code, authentication, database, or content-management system.
 - Never place secrets in `VITE_` environment variables; Vite includes those values in public browser code.
-- The values in `.env.example` are not secret and are safe to configure in the hosting provider.
-- Run `npm run build` before every deployment. A successful build performs TypeScript checking first.
+- The values in `.env` are not secret, which is why it is committed. FTP credentials live only in GitHub Actions secrets.
+- Deployments build automatically; a failed build (including TypeScript errors) stops the upload, so a broken change never reaches the live site.
 - Preserve meaningful image `alt` text and visible keyboard focus when changing the interface.
