@@ -1,14 +1,13 @@
 name: Deploy to Bluehost
 
+# Manual only: run from Actions → Deploy to Bluehost → Run workflow.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# Never run two uploads at once; a newer push waits for the current upload to finish.
+# Never run two uploads at once; a second run waits for the current upload to finish.
 concurrency:
   group: bluehost
   cancel-in-progress: false

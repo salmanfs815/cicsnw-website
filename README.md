@@ -25,7 +25,7 @@ The site is a small multi-page Vite build. The main page component is `app/page.
 npm install
 ```
 
-Site configuration lives in `.env`, which is committed to the repository. Edit it and push to `main` to update the live site. For example:
+Site configuration lives in `.env`, which is committed to the repository. Edit it, push to `main`, then deploy (see [Deployment](#deployment)). For example:
 
 ```env
 VITE_DONATION_URL=https://your-fundraising-platform.example/donate
@@ -65,13 +65,30 @@ To check the production build locally:
 npm run preview
 ```
 
-## Deployment (Bluehost)
+## Deployment
 
-The live site at `https://cicsnw.org` is hosted on Bluehost. Every push to `main` runs **Actions → Deploy to Bluehost** (`.github/workflows/deploy-bluehost.yml`), which builds the site and uploads `dist/` over FTPS. It can also be run by hand from the Actions tab with **Run workflow**.
+There are two deployments:
+
+| Site | URL | When it updates |
+| --- | --- | --- |
+| Preview (GitHub Pages) | `https://salmanfs815.github.io/cicsnw-website/` | Automatically on every push to `main` |
+| Live (Bluehost) | `https://cicsnw.org` | Only when you run it by hand |
+
+The usual flow is: push to `main`, check the preview, then deploy to Bluehost.
+
+### GitHub Pages (preview)
+
+Every push to `main` runs **Actions → Deploy to GitHub Pages** (`.github/workflows/deploy-pages.yml`). It can also be run by hand with **Run workflow**. **Settings → Pages → Source** must be set to **GitHub Actions**.
+
+Local and live builds use the `/` base path from `.env`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`. The prayer timetable will only load on the preview if `salmanfs815.github.io` is an allowed domain for the Masjidal key.
+
+### Bluehost (live)
+
+Open **Actions → Deploy to Bluehost** (`.github/workflows/deploy-bluehost.yml`), select **Run workflow**, and run it from `main`. It builds the site and uploads `dist/` over FTPS. Pushing to `main` alone does not change the live site.
 
 Only changed files are uploaded. The action keeps a `.ftp-deploy-sync-state.json` file in the server directory to track what it uploaded last time; don't delete it (if it goes missing, the next deploy simply re-uploads everything). Files on the server that the action never uploaded, such as `.htaccess`, are left alone.
 
-### One-time setup
+#### One-time setup
 
 In the repository on GitHub, open **Settings → Secrets and variables → Actions** and add:
 
@@ -99,18 +116,6 @@ This works with services such as Cloudflare Pages, Netlify, Vercel static hostin
 
 If the site is hosted below a subdirectory instead of at the domain root, set `VITE_BASE_PATH` to that path before building.
 
-## GitHub Pages deployment
-
-GitHub Pages is intentionally disabled by default, and pushes to `main` do not publish the site.
-
-To temporarily enable it for testing:
-
-1. In the repository's GitHub settings, open **Pages** and set **Source** to **GitHub Actions**.
-2. Open **Actions → Deploy to GitHub Pages**, select **Run workflow**, and run it from `main`.
-3. When testing is finished, return to **Settings → Pages** and disable/unpublish the site. The deployment workflow remains available for the next test.
-
-The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. Local and production builds use the `/` base path from `.env`; the GitHub Pages workflow overrides `VITE_BASE_PATH` with `/cicsnw-website/`.
-
 ## Adding gallery photos
 
 1. Add an optimized `.jpg`, `.png`, `.webp`, or `.avif` image to `public/gallery/`.
@@ -128,7 +133,7 @@ The default deployment URL is `https://salmanfs815.github.io/cicsnw-website/`. L
 
 `alt` text is required and should briefly describe what is visible for people using screen readers. `caption` is optional. Keep filenames lowercase, use hyphens instead of spaces, and resize large camera photos before adding them. WebP or AVIF is preferred for smaller downloads.
 
-The gallery automatically includes each valid entry in its carousel. Push the change to `main` to deploy the update.
+The gallery automatically includes each valid entry in its carousel. Push the change to `main`, then [deploy to Bluehost](#bluehost-live) to publish it.
 
 ## Recognizing ambassadors
 
@@ -143,7 +148,7 @@ Once an ambassador's combined donations and pledges reach $10,000, add them to t
 ]
 ```
 
-Push the change to `main` to deploy the update.
+Push the change to `main`, then [deploy to Bluehost](#bluehost-live) to publish it.
 
 ## Logo and other public files
 
