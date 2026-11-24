@@ -1,5 +1,10 @@
 # CICSNW website
 
+[![Deploy to Bluehost](https://github.com/salmanfs815/cicsnw-website/actions/workflows/deploy-bluehost.yml/badge.svg)](https://github.com/salmanfs815/cicsnw-website/actions/workflows/deploy-bluehost.yml)
+[![Deploy to GitHub Pages](https://github.com/salmanfs815/cicsnw-website/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/salmanfs815/cicsnw-website/actions/workflows/deploy-pages.yml)
+[![cicsnw.org](https://img.shields.io/website?url=https%3A%2F%2Fcicsnw.org&label=cicsnw.org)](https://cicsnw.org)
+[![Last commit](https://img.shields.io/github/last-commit/salmanfs815/cicsnw-website/main)](https://github.com/salmanfs815/cicsnw-website/commits/main)
+
 Static fundraising and community website for CICSNW, Taiba Musalla, and the New West Masjid project.
 
 The site has no backend, database, accounts, or login requirement. A production build consists entirely of static HTML, CSS, JavaScript, and image files that can be hosted by any normal static hosting service.
