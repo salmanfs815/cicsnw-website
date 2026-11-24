@@ -193,6 +193,14 @@ https://cicsnw.org/donate/?utm_source=instagram&utm_medium=social&utm_campaign=n
 
 In Umami, visits to `/donate/` are donation-link clicks, and UTM Source shows which channel they came from. Keep this page on the site while any of these links are posted.
 
+### Arabic Studies link
+
+`https://cicsnw.org/arabic/` (`arabic/index.html`) works the same way for the Arabic Studies program: Umami records the visit with its UTM values, then the page sends the person to `VITE_ARABIC_STUDIES_URL`. For example:
+
+```text
+https://cicsnw.org/arabic/?utm_source=whatsapp&utm_medium=social&utm_campaign=arabic-studies
+```
+
 ## Important maintenance notes
 
 - This is a static multi-page site with two content pages (`index.html` and `ambassador.html`) plus the redirect pages described under [Flyer tracking](#flyer-tracking) and [Donation links for social media](#donation-links-for-social-media). Within each content page, navigation links scroll to sections on that same page.

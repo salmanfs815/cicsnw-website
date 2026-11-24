@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <noscript><meta http-equiv="refresh" content="0; url=%VITE_ARABIC_STUDIES_URL%" /></noscript>
+    <title>Arabic Studies | New West Masjid</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; box-sizing: border-box; background: #f7f4eb; color: #13362f; font-family: Georgia, "Times New Roman", serif; font-size: 20px; text-align: center; }
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <p>Taking you to the Arabic Studies page&hellip;<br /><a id="arabic-link" href="%VITE_ARABIC_STUDIES_URL%">Continue to Arabic Studies</a></p>
+    <script>
+      // Arabic Studies links open this page so Umami can count them as visits to
+      // /arabic/, attributed by the UTM parameters in the link.
+      // Umami sends its page view as the page finishes loading, so continue right after
+      // that. The timer gets visitors through even if Umami is slow or blocked.
+      (function () {
+        function continueToArabic() {
+          location.replace(document.getElementById("arabic-link").href);
+        }
+        addEventListener("load", function () { setTimeout(continueToArabic, 100); });
+        setTimeout(continueToArabic, 1500);
+      })();
+    </script>
+  </body>
+</html>
